@@ -4,6 +4,8 @@
 <dict>
 	<key>GITHUB_CLIENT</key>
 	<string>$GITHUB_CLIENT_SECRET</string>
+	<key>GITHUB_CLIENT_ID</key>
+	<string>$GITHUB_CLIENT_ID</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
