@@ -16,6 +16,8 @@
 		723FE7D8287924FD00712166 /* GitHubRepoFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7D7287924FD00712166 /* GitHubRepoFinderUITests.swift */; };
 		723FE7DA287924FD00712166 /* GitHubRepoFinderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7D9287924FD00712166 /* GitHubRepoFinderUITestsLaunchTests.swift */; };
 		723FE7E82879AA7D00712166 /* GitHubAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */; };
+		723FE7EA287A97A200712166 /* GitHubConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7E9287A97A200712166 /* GitHubConstants.swift */; };
+		723FE7EC287AF31200712166 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7EB287AF31200712166 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		723FE7D7287924FD00712166 /* GitHubRepoFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoFinderUITests.swift; sourceTree = "<group>"; };
 		723FE7D9287924FD00712166 /* GitHubRepoFinderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoFinderUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIClient.swift; sourceTree = "<group>"; };
+		723FE7E9287A97A200712166 /* GitHubConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubConstants.swift; sourceTree = "<group>"; };
+		723FE7EB287AF31200712166 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				723FE7B6287924FC00712166 /* AppDelegate.swift */,
 				723FE7B8287924FC00712166 /* SceneDelegate.swift */,
 				723FE7BA287924FC00712166 /* ViewController.swift */,
+				723FE7EB287AF31200712166 /* User.swift */,
+				723FE7E9287A97A200712166 /* GitHubConstants.swift */,
 				723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */,
 				723FE7BF287924FD00712166 /* Assets.xcassets */,
 				723FE7C1287924FD00712166 /* LaunchScreen.storyboard */,
@@ -259,7 +265,9 @@
 			files = (
 				723FE7E82879AA7D00712166 /* GitHubAPIClient.swift in Sources */,
 				723FE7BB287924FC00712166 /* ViewController.swift in Sources */,
+				723FE7EC287AF31200712166 /* User.swift in Sources */,
 				723FE7B7287924FC00712166 /* AppDelegate.swift in Sources */,
+				723FE7EA287A97A200712166 /* GitHubConstants.swift in Sources */,
 				723FE7B9287924FC00712166 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
