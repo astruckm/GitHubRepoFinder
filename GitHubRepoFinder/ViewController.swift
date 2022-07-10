@@ -15,27 +15,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         guard let url = client.generateAuthURL() else { return }
-        print("url: ", url)
-        let session = ASWebAuthenticationSession(url: url, callbackURLScheme: "abc") { callbackURL, error in
+        print("generated url: ", url)
+        let session = ASWebAuthenticationSession(url: url,
+                                                 callbackURLScheme: GitHubConstants.callbackURLScheme)
+        { callbackURL, error in
             print("got back url: \(callbackURL), error: \(error)")
         }
         session.presentationContextProvider = self
         session.prefersEphemeralWebBrowserSession = true
         session.start()
-        
-        
-        let gitHubClientStr = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT") as? String
-        let gitHubClientIdStr = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_ID") as? String
-        if let gitHubClientStr = gitHubClientStr {
-            print("gitHubClientStr", gitHubClientStr)
-        } else {
-            print("No GitHub Client Secret")
-        }
-        if let gitHubClientIdStr = gitHubClientIdStr {
-            print("gitHubClientIdStr", gitHubClientIdStr)
-        } else {
-            print("No GitHub Client ID string")
-        }
     }
 
 
