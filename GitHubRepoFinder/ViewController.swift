@@ -26,11 +26,15 @@ class ViewController: UIViewController {
         
         let gitHubClientStr = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT") as? String
         let gitHubClientIdStr = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_ID") as? String
-        if let gitHubClientStr = gitHubClientStr, let gitHubClientIdStr = gitHubClientIdStr {
+        if let gitHubClientStr = gitHubClientStr {
             print("gitHubClientStr", gitHubClientStr)
-            print("gitHubClientIdStr", gitHubClientIdStr)
         } else {
             print("No GitHub Client Secret")
+        }
+        if let gitHubClientIdStr = gitHubClientIdStr {
+            print("gitHubClientIdStr", gitHubClientIdStr)
+        } else {
+            print("No GitHub Client ID string")
         }
     }
 
