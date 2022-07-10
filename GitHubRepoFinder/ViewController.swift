@@ -6,14 +6,40 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class ViewController: UIViewController {
-
+    let client = GitHubAPIClient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        guard let url = client.generateAuthURL() else { return }
+        print("url: ", url)
+        let session = ASWebAuthenticationSession(url: url, callbackURLScheme: "abc") { callbackURL, error in
+            print("got back url: \(callbackURL), error: \(error)")
+        }
+        session.presentationContextProvider = self
+        session.prefersEphemeralWebBrowserSession = true
+        session.start()
+        
+        
+        let gitHubClientStr = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT") as? String
+        let gitHubClientIdStr = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_ID") as? String
+        if let gitHubClientStr = gitHubClientStr, let gitHubClientIdStr = gitHubClientIdStr {
+            print("gitHubClientStr", gitHubClientStr)
+            print("gitHubClientIdStr", gitHubClientIdStr)
+        } else {
+            print("No GitHub Client Secret")
+        }
     }
 
 
+}
+
+extension ViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window ?? UIWindow()
+    }
 }
 
