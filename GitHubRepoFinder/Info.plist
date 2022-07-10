@@ -2,10 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>GITHUB_CLIENT_ID</key>
-	<string>$GITHUB_CLIENT_ID</string>
-	<key>GITHUB_CLIENT</key>
-	<string>$GITHUB_CLIENT_SECRET</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.astruckmarcell.GitHubRepoFinder</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.astruckmarcell.GitHubRepoFinder</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
