@@ -48,7 +48,6 @@
 		723FE7D3287924FD00712166 /* GitHubRepoFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubRepoFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		723FE7D7287924FD00712166 /* GitHubRepoFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoFinderUITests.swift; sourceTree = "<group>"; };
 		723FE7D9287924FD00712166 /* GitHubRepoFinderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoFinderUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		723FE7E628799DE600712166 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,7 +79,6 @@
 		723FE7AA287924FB00712166 = {
 			isa = PBXGroup;
 			children = (
-				723FE7E628799DE600712166 /* Secrets.xcconfig */,
 				723FE7B5287924FC00712166 /* GitHubRepoFinder */,
 				723FE7CC287924FD00712166 /* GitHubRepoFinderTests */,
 				723FE7D6287924FD00712166 /* GitHubRepoFinderUITests */,
@@ -312,7 +310,6 @@
 /* Begin XCBuildConfiguration section */
 		723FE7DB287924FD00712166 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 723FE7E628799DE600712166 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -374,7 +371,6 @@
 		};
 		723FE7DC287924FD00712166 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 723FE7E628799DE600712166 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
