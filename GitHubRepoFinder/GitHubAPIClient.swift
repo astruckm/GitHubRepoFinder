@@ -7,6 +7,25 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+  case get = "GET"
+  case post = "POST"
+}
+
+enum GitHubRequestType {
+    case codeExchange(code: String)
+    case getRepos
+    case getUser
+    case signIn
+
+    var httpMethod: HTTPMethod {
+        switch self {
+        case .codeExchange(_): return .post
+        case .getRepos, .getUser, .signIn: return  .get
+        }
+    }
+}
+
 class GitHubAPIClient {
     
     
