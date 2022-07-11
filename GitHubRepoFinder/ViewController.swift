@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 import AuthenticationServices
 
-class ViewController: UIViewController {
+class NodeViewController: ASDKViewController<ASDisplayNode> {
     let client = GitHubAPIClient()
     
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class ViewController: UIViewController {
         session.presentationContextProvider = self
         session.prefersEphemeralWebBrowserSession = true
         session.start()
-
+        
     }
     
     func getAccessToken(url: URL) {
@@ -62,13 +63,13 @@ class ViewController: UIViewController {
     }
     
 }
-    
-    
-    
-    
-    extension ViewController: ASWebAuthenticationPresentationContextProviding {
-        func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-            return view.window ?? UIWindow()
-        }
+
+
+
+
+extension NodeViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window ?? UIWindow()
     }
-    
+}
+
