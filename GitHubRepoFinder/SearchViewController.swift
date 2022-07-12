@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchViewController.swift
 //  GitHubRepoFinder
 //
 //  Created by Andrew Struck-Marcell on 7/9/22.
@@ -9,7 +9,7 @@ import UIKit
 import AsyncDisplayKit
 import AuthenticationServices
 
-class NodeViewController: ASDKViewController<ASDisplayNode> {
+class SearchViewController: ASDKViewController<ASDisplayNode> {
     let client = GitHubAPIClient()
     
     override init() {
@@ -94,7 +94,7 @@ class NodeViewController: ASDKViewController<ASDisplayNode> {
 
 
 
-extension NodeViewController: ASWebAuthenticationPresentationContextProviding {
+extension SearchViewController: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return view.window ?? UIWindow()
     }
