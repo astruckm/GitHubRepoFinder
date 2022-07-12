@@ -12,10 +12,38 @@ import AuthenticationServices
 class NodeViewController: ASDKViewController<ASDisplayNode> {
     let client = GitHubAPIClient()
     
+    override init() {
+        let node = ASDisplayNode()
+        super.init(node: node)
+        
+        // TODO: can set data source, delegate here
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let url = client.generateAuthURL() else { return }
+        node.backgroundColor = .systemBackground
+        
+        navigationController?.navigationBar.backgroundColor = .systemGray6
+//        navigationController?.navigationBar.shadowImage = UIColor.darkGray.image(CGSize(width: view.frame.width, height: 1))
+        self.navigationItem.title = "Repo Finder"
+        let loginBarButton = UIBarButtonItem()
+        loginBarButton.action = #selector(login)
+        loginBarButton.target = self
+        loginBarButton.image = UIImage(systemName: "person.crop.circle")
+        loginBarButton.title = "login"
+        self.navigationItem.rightBarButtonItem = loginBarButton
+
+        
+        
+    }
+    
+    @objc func login() {
+        guard let url = client.generateAuthURL else { return }
         let session = ASWebAuthenticationSession(url: url,
                                                  callbackURLScheme: GitHubConstants.callbackURLScheme)
         { [weak self] callbackURL, error in
@@ -34,7 +62,6 @@ class NodeViewController: ASDKViewController<ASDisplayNode> {
         session.presentationContextProvider = self
         session.prefersEphemeralWebBrowserSession = true
         session.start()
-        
     }
     
     func getAccessToken(url: URL) {
