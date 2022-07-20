@@ -16,6 +16,7 @@ enum NetworkingError: LocalizedError {
     case noImageData
     case dataDecodingFailure(String?)
     case noImageURL
+    case objectReleasedEarly(String?)
     
     var errorDescription: String? {
         switch self {
@@ -25,8 +26,9 @@ enum NetworkingError: LocalizedError {
         case .badURLResponse(let statusCode): return "Failure with server response code: \(statusCode)"
         case .noData: return "Data from request is nil"
         case .noImageData: return "Image data could not be retrieved from URL"
-        case .dataDecodingFailure(let description): return description == nil ? "Could not decode JSON data to data model type" : description
+        case .dataDecodingFailure(let description): return description ?? "Could not decode JSON data to data model type"
         case .noImageURL: return "No URL for that image"
+        case .objectReleasedEarly(let description): return description ?? "Object released before completion"
         }
     }
 }

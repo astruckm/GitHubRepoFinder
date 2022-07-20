@@ -13,29 +13,26 @@ enum HTTPMethod: String {
 }
 
 enum GitHubRequestType {
-    case codeExchange(code: String)
+    case signIn
+    case codeExchange
     case getRepos
     case getUser
-    case signIn
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .codeExchange(_): return .post
-        case .getRepos, .getUser, .signIn: return  .get
+        case .codeExchange: return .post
+        case .getRepos, .getUser, .signIn: return .get
         }
     }
+    
 }
 
-class GitHubAPIClient {
+class GitHubOAuthClient: HttpClientHandler {
     var accessToken: String?
     var refreshToken: String?
-    
-    let userURL = URL(string: "https://api.github.com/user")
 
-    func generateAuthURL() -> URL? {
-//        let gitHubClientIdStr = GitHubConstants.clientID
+    var authURL: URL? {
         let gitHubAuthUrl = "https://github.com/login/oauth/authorize"
-        
         var urlComponents = URLComponents(string: gitHubAuthUrl)
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: GitHubConstants.clientID)
@@ -55,37 +52,71 @@ class GitHubAPIClient {
         return urlComponents?.url
     }
     
-    func load<T: Decodable>(fromURL url: URL, with requestType: GitHubRequestType, responseType: T.Type, completion: @escaping ((Result<T, Error>) -> Void)) {
-        print("loading with url: ", url)
+    func loadTokens(with code: String, completion: @escaping ((Result<String, Error>) -> Void)) {
+        guard let url = generateAccessTokenURL(with: code) else {
+            completion(.failure(NetworkingError.invalidURL))
+            return
+        }
+        let requestType = GitHubRequestType.codeExchange
         var request = URLRequest(url: url)
         request.httpMethod = requestType.httpMethod.rawValue
-        if let accessToken = self.accessToken {
-            print("setting token")
-            request.setValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let task = session.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else {
+                completion(.failure(NetworkingError.objectReleasedEarly("GitHubOAuthClient released before loadTokens completion")))
+                return
+            }
+            let data = self.handleDataTaskErrors(data: data, response: response, error: error)
+            switch data {
+            case .success(let data):
+                let tokenResponse = self.unwrapTokenResponse(data)
+                completion(.success(tokenResponse ?? ""))
+            case .failure(let err):
+                completion(.failure(err))
+            }
+        }
+        task.resume()
+    }
+    
+    @discardableResult
+    func unwrapTokenResponse(_ data: Data) -> String? {
+        if let responseStr = String(data: data, encoding: .utf8) {
+            let components = responseStr.components(separatedBy: "&")
+            for component in components {
+                let componentParts = component.components(separatedBy: "=")
+                guard let key = componentParts.first, let value = componentParts.last else { continue }
+                if key == "access_token" {
+                    self.accessToken = value
+                } else if key == "refresh_token" {
+                    self.refreshToken = value
+                }
+            }
+            return responseStr
+        } else {
+            return nil
+        }
 
+    }
+    
+}
+
+class GitHubApiClient: HttpClientHandler {
+    // MARK: URLs
+    let userURL = URL(string: "https://api.github.com/user")
+
+    // MARK: Network calls
+    func loadUser(fromURL url: URL, accessToken: String?, completion: @escaping ((Result<User, Error>) -> Void)) {
+        var request = URLRequest(url: url)
+        request.httpMethod = GitHubRequestType.getUser.httpMethod.rawValue
+        if let accessToken = accessToken {
+            request.setValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: request) { [weak self] data, response, error in
-            print("data: \(data), response: \((response as? HTTPURLResponse)?.statusCode), error: \(error)")
             guard let data = data else { return }
 
             do {
-                if T.self == String.self, let responseStr = String(data: data, encoding: .utf8) {
-                    let components = responseStr.components(separatedBy: "&")
-                    for component in components {
-                        let componentParts = component.components(separatedBy: "=")
-                        guard let key = componentParts.first, let value = componentParts.last else { continue }
-                        if key == "access_token" {
-                            self?.accessToken = value
-                        } else if key == "refresh_token" {
-                            self?.refreshToken = value
-                        }
-                    }
-                    
-                    completion(.success(responseStr as! T))
-                    return
-                }
-                if let responseType = try? JSONDecoder().decode(T.self, from: data) {
+                if let responseType = try? JSONDecoder().decode(User.self, from: data) {
                     completion(.success(responseType))
                 } else {
                     let dataStr = String(data: data, encoding: .utf8)

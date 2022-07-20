@@ -10,7 +10,8 @@ import AsyncDisplayKit
 import AuthenticationServices
 
 class SearchViewController: ASDKViewController<ASDisplayNode> {
-    let client = GitHubAPIClient()
+    let client = GitHubApiClient()
+    let oauthClient = GitHubOAuthClient()
     
     override init() {
         let node = ASDisplayNode()
@@ -43,7 +44,7 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
     }
     
     @objc func login() {
-        guard let url = client.generateAuthURL else { return }
+        guard let url = oauthClient.authURL else { return }
         let session = ASWebAuthenticationSession(url: url,
                                                  callbackURLScheme: GitHubConstants.callbackURLScheme)
         { [weak self] callbackURL, error in
@@ -51,21 +52,20 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
             guard error == nil,
                   let callbackURL = callbackURL,
                   let queryItems = URLComponents(string: callbackURL.absoluteString)?.queryItems,
-                  let code = queryItems.first(where: { $0.name == "code" })?.value,
-                  let url = self?.client.generateAccessTokenURL(with: code)
+                  let code = queryItems.first(where: { $0.name == "code" })?.value
             else {
                 print("An error occurred when attempting to sign in.")
                 return
             }
-            self?.getAccessToken(url: url)
+            self?.getAccessToken(with: code)
         }
         session.presentationContextProvider = self
         session.prefersEphemeralWebBrowserSession = true
         session.start()
     }
     
-    func getAccessToken(url: URL) {
-        client.load(fromURL: url, with: .codeExchange(code: ""), responseType: String.self) { [weak self] result in
+    func getAccessToken(with code: String/*url: URL*/) {
+        oauthClient.loadTokens(with: code) { [weak self] result in
             switch result {
             case .success(let str):
                 print("success result: ", str)
@@ -79,7 +79,7 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
     
     func getUser() {
         guard let getUserURL = client.userURL else { return }
-        client.load(fromURL: getUserURL, with: .getUser, responseType: User.self) { result in
+        client.loadUser(fromURL: getUserURL, accessToken: oauthClient.accessToken) { result in
             switch result {
             case .success(let user):
                 print("User is: ", user)
