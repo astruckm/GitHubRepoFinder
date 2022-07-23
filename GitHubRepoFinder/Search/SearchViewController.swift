@@ -5,12 +5,11 @@
 //  Created by Andrew Struck-Marcell on 7/9/22.
 //
 
-import UIKit
 import AsyncDisplayKit
 import AuthenticationServices
 
 class SearchViewController: ASDKViewController<ASDisplayNode> {
-    let tableNode: ASTableNode
+    let searchDisplayNode: SearchDisplayNode
     
     let viewModel: SearchViewModel
     let client = GitHubApiClient()
@@ -18,21 +17,19 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
     
     override init() {
         viewModel = SearchViewModel()
-
-        let node = ASDisplayNode()
-        let tableNode = ASTableNode(style: .plain)
-        self.tableNode = tableNode
-        super.init(node: node)
+        searchDisplayNode = SearchDisplayNode()
+        let baseNode = ASDisplayNode()
+        baseNode.addSubnode(searchDisplayNode)
+        super.init(node: baseNode)
         
-        tableNode.dataSource = self
-        tableNode.delegate = self
+        self.node.layoutSpecBlock = { node, constrainedSize in
+            return ASInsetLayoutSpec(insets: .zero, child: self.searchDisplayNode)
+        }
     }
     
     required init?(coder: NSCoder) {
         viewModel = SearchViewModel()
-        
-        let tableNode = ASTableNode(style: .plain)
-        self.tableNode = tableNode
+        searchDisplayNode = SearchDisplayNode()
         super.init(coder: coder)
     }
     
@@ -40,8 +37,7 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         super.viewDidLoad()
         
         node.backgroundColor = .systemBackground
-        node.addSubnode(tableNode)
-        tableNode.frame = node.frame
+//        searchDisplayNode.backgroundColor = .systemGreen
         
         navigationController?.navigationBar.backgroundColor = .systemGray6
 //        navigationController?.navigationBar.shadowImage = UIColor.darkGray.image(CGSize(width: view.frame.width, height: 1))
