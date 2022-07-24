@@ -23,7 +23,8 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         super.init(node: baseNode)
         
         self.node.layoutSpecBlock = { node, constrainedSize in
-            return ASInsetLayoutSpec(insets: .zero, child: self.searchDisplayNode)
+            let isPortrait = (UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown)
+            return ASInsetLayoutSpec(insets: UIEdgeInsets(top: isPortrait ? 68 : 44, left: 0, bottom: 0, right: 0), child: self.searchDisplayNode)
         }
     }
     
@@ -37,7 +38,6 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         super.viewDidLoad()
         
         node.backgroundColor = .systemBackground
-//        searchDisplayNode.backgroundColor = .systemGreen
         
         navigationController?.navigationBar.backgroundColor = .systemGray6
 //        navigationController?.navigationBar.shadowImage = UIColor.darkGray.image(CGSize(width: view.frame.width, height: 1))
@@ -50,7 +50,7 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         self.navigationItem.rightBarButtonItem = loginBarButton
         
     }
-    
+        
     @objc func login() {
         guard let url = oauthClient.authURL else { return }
         let session = ASWebAuthenticationSession(url: url,

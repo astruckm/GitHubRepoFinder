@@ -23,8 +23,8 @@ class SearchDisplayNode: ASDisplayNode {
         tableNode.dataSource = dataSource
         tableNode.delegate = self
         
-        textNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
-        tableNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 32 - 44)
+        textNode.style.preferredSize = CGSize(width: 1000, height: 32)
+        tableNode.style.preferredSize = CGSize(width: 1000, height: UIScreen.main.bounds.height - 32 - 44)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
