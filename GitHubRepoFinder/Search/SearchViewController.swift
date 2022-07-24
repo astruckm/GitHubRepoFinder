@@ -12,7 +12,6 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
     let searchDisplayNode: SearchDisplayNode
     
     let viewModel: SearchViewModel
-    let client = GitHubApiClient()
     let oauthClient = GitHubOAuthClient()
     
     override init() {
