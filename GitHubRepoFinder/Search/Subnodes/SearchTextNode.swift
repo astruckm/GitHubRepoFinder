@@ -21,22 +21,29 @@ class SearchTextNode: ASDisplayNode {
             searchView.backgroundImage = nil
             searchView.backgroundColor = .clear
             searchView.searchBarStyle = .minimal
+            searchView.delegate = self
             return searchView
         }
         self.style.height = ASDimension(unit: .points, value: height)
+        self.didEndEditing = didEndEditing
         self.backgroundColor = .systemBackground
     }
                 
-//    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-//        
-//        
-//        return ASInsetLayoutSpec(insets: .zero, child: <#T##ASLayoutElement#>)
-//    }
 }
 
 extension SearchTextNode: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("searchBarCancelButtonClicked")
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         didEndEditing?(text)
+        searchBar.resignFirstResponder()
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("textDidChange")
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("searchBarTextDidEndEditing")
     }
 }

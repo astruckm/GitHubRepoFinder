@@ -28,7 +28,7 @@ class SearchDisplayNode: ASDisplayNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let textSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0), child: textNode)
+        let textSpec = ASInsetLayoutSpec(insets: .zero, child: textNode)
         let tableInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), child: tableNode)
         
         let containingVSpec = ASStackLayoutSpec(direction: .vertical,
