@@ -48,6 +48,7 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         loginBarButton.title = "login"
         self.navigationItem.rightBarButtonItem = loginBarButton
         
+        viewModel.getRepos(with: "test")
     }
         
     @objc func login() {

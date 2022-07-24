@@ -11,6 +11,7 @@ class SearchViewModel {
     let client = GitHubApiClient()
     let oauthClient = GitHubOAuthClient()
     var user: User?
+    var repos: SearchReposResponse?
 
     func handleGitHubAuthCallback(_ url: URL?, error: Error?) {
         if let error = error {
@@ -46,6 +47,19 @@ class SearchViewModel {
                 print("User is: ", user)
             case .failure(let error):
                 print("error getting user: ", error)
+            }
+        }
+    }
+    
+    func getRepos(with searchQuery: String) {
+        guard let getReposURL = client.makeFullSearchReposURL(from: searchQuery) else { return }
+        client.loadRepos(fromURL: getReposURL, accessToken: oauthClient.accessToken) { [weak self] result in
+            switch result {
+            case .success(let repos):
+                self?.repos = repos
+                print("Repos total count: ", repos.totalCount)
+            case .failure(let error):
+                print("error getting repos: ", error)
             }
         }
     }
