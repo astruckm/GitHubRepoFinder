@@ -16,7 +16,6 @@ class SearchDataSource: NSObject, ASTableDataSource {
         // TODO: grab repo object here
         return {
             let node = RepoCellNode()
-            node.backgroundColor = .blue
             return node
         }
     }

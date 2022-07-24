@@ -23,8 +23,6 @@ class SearchDisplayNode: ASDisplayNode {
         tableNode.dataSource = dataSource
         tableNode.delegate = self
         
-        tableNode.backgroundColor = .blue
-        
         textNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
         tableNode.style.preferredSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 32 - 44)
     }
