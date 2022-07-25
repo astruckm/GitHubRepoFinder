@@ -25,13 +25,19 @@ struct Item: Codable {
     let name: String
     let fullName: String
     let owner: Owner
-    let htmlURL: String
+//    let htmlURL: String
+    let stargazersCount: Int?
+    let language: String?
+    let description: String?
 
     enum CodingKeys: String, CodingKey {
         case name
         case fullName = "full_name"
         case owner
-        case htmlURL = "html_url"
+//        case htmlURL = "html_url"
+        case stargazersCount = "stargazers_count"
+        case language
+        case description
     }
 }
 

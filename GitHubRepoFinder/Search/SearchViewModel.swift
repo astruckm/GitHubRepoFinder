@@ -39,8 +39,8 @@ class SearchViewModel {
     }
     
     func getUser() {
-        guard let getUserURL = client.userURL else { return }
-        client.loadUser(fromURL: getUserURL, accessToken: oauthClient.accessToken) { [weak self] result in
+        guard let getUserURL = URL(string: client.userURL) else { return }
+        client.getUser(fromURL: getUserURL, accessToken: oauthClient.accessToken) { [weak self] result in
             switch result {
             case .success(let user):
                 self?.user = user
@@ -53,15 +53,37 @@ class SearchViewModel {
     
     func getRepos(with searchQuery: String) {
         guard let getReposURL = client.makeFullSearchReposURL(from: searchQuery) else { return }
-        client.loadRepos(fromURL: getReposURL, accessToken: oauthClient.accessToken) { [weak self] result in
+        client.getRepos(fromURL: getReposURL, accessToken: oauthClient.accessToken) { [weak self] result in
             switch result {
             case .success(let repos):
                 self?.repos = repos
                 print("Repos total count: ", repos.totalCount)
+                print("Repos num Items: ", repos.items.count)
+                for item in repos.items {
+                    print("fullName: ", item.fullName)
+                    print("Name: ", item.name)
+                    print("Description: ", item.description)
+                    print("Language: ", item.language)
+                    print("Stargazers count: ", item.stargazersCount)
+                    if item.fullName == "facebook/jest" {
+                        self?.getReadMeImage(repoFullName: item.fullName)
+                    }
+                }
             case .failure(let error):
                 print("error getting repos: ", error)
             }
         }
     }
+    
+    func getReadMeImage(repoFullName fullName: String) {
+        client.getReadMeImage(fullRepoName: fullName, accessToken: oauthClient.accessToken) { result in
+            switch result {
+            case .success(let img): break
+            case .failure(let error):
+                print("error fetching image: \(error)")
+            }
+        }
+    }
+    
 
 }
