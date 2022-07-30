@@ -128,7 +128,6 @@ extension GitHubApiClient {
     
     func processRawReadMe(data: Data, fullRepoName fullName: String) -> URL? {
         let htmlStr = String(data: data, encoding: .utf8) ?? ""
-        print("htmlStr: ", htmlStr)
         return htmlStr.gitHubReadMeFirstImageURL(repoFullName: fullName)
     }
 }

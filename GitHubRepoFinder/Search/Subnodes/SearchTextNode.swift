@@ -31,18 +31,9 @@ class SearchTextNode: ASDisplayNode {
 }
 
 extension SearchTextNode: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("searchBarCancelButtonClicked")
-    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         didEndEditing?(text)
         searchBar.resignFirstResponder()
-    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("textDidChange")
-    }
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("searchBarTextDidEndEditing")
     }
 }

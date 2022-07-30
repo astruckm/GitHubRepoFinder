@@ -17,6 +17,8 @@ extension String {
             let fullURL: URL?
             if imageURLStr.contains("https://") {
                 fullURL = URL(string: imageURLStr)
+            } else if imageURLStr.contains("http://") {
+                return nil
             } else {
                 let fullURLStr = "https://raw.githubusercontent.com/" + fullName + "/main/" + imageURLStr
                 fullURL = URL(string: fullURLStr)
