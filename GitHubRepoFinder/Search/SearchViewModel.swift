@@ -29,7 +29,11 @@ class SearchViewModel {
     var user: User?
     var repos: SearchReposResponse?
     var reposViewData: [RepoCellViewData] = []
-    var updateReposUI: (() -> Void)?
+    var updateAllRepos: (([RepoCellViewData]) -> Void)?
+    var updateRepo: ((IndexPath, RepoCellViewData) -> Void)?
+    
+    
+    let reposViewDataUpdateQueue = DispatchQueue(label: "com.astruckmarcell.GitHubRepoFinder.reposViewDataUpdateQueue")
 
     func handleGitHubAuthCallback(_ url: URL?, error: Error?) {
         if let error = error {
@@ -79,12 +83,8 @@ class SearchViewModel {
                 print("Repos total count: ", reposSearchResponse.totalCount)
                 print("Repos num Items: ", reposSearchResponse.items.count)
                 self.populateViewData(fromSearchReposResponse: reposSearchResponse)
-                for item in reposSearchResponse.items {
-//                    print("name: ", item.name)
-//                    print("description: ", item.description)
-//                    print("language: ", item.language)
-//                    print("stars: ", item.stargazersCount)
-                    self.getReadMeImageURL(repoItem: item)
+                for (index, item) in reposSearchResponse.items.enumerated() {
+                    self.getReadMeImageURL(repoItem: item, atIndex: index)
                 }
             case .failure(let error):
                 print("error getting repos: ", error)
@@ -92,13 +92,21 @@ class SearchViewModel {
         }
     }
     
-    func getReadMeImageURL(repoItem item: Item) {
+    func getReadMeImageURL(repoItem item: Item, atIndex index: Int) {
         let fullName = item.fullName
-        client.getReadMeImage(fullRepoName: fullName, accessToken: oauthClient.accessToken) { result in
+        client.getReadMeImage(fullRepoName: fullName, accessToken: oauthClient.accessToken) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let url):
-                print("fetched image url: ", url)
-                // TODO: assign to item
+                self.reposViewDataUpdateQueue.async {
+                    guard index < self.reposViewData.count else { return }
+                    let indexPath = IndexPath(row: index, section: 0)
+                    let newViewData = self.reposViewData[index]
+                    newViewData.imageURL = url
+                    
+                    self.reposViewData[index] = newViewData
+                    self.updateRepo?(indexPath, newViewData)
+                }
             case .failure(let error):
                 print("error fetching image: \(error)")
             }
@@ -107,8 +115,8 @@ class SearchViewModel {
     
     func populateViewData(fromSearchReposResponse response: SearchReposResponse) {
         // TODO: make description be only first 1000 characters or whatever, make sure that language property corresponds to most used one. Check if stargazersCount is every nil
-        self.reposViewData = response.items.map { RepoCellViewData(title: $0.name, description: $0.description ?? "", language: $0.language ?? "", numStars: $0.stargazersCount ?? 0) }
-        self.updateReposUI?()
+        reposViewData = response.items.map { RepoCellViewData(title: $0.name, description: $0.description ?? "", language: $0.language ?? "", numStars: $0.stargazersCount ?? 0) }
+        updateAllRepos?(reposViewData)
     }
 
 }

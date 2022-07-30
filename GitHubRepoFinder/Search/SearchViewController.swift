@@ -25,10 +25,23 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
             let isPortrait = (UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown)
             return ASInsetLayoutSpec(insets: UIEdgeInsets(top: isPortrait ? 68 : 44, left: 0, bottom: 0, right: 0), child: self.searchDisplayNode)
         }
+        viewModel.updateAllRepos = { [weak self] viewData in
+            self?.searchDisplayNode.dataSource.viewData = viewData
+            DispatchQueue.main.async {
+                self?.searchDisplayNode.tableNode.reloadData()
+            }
+        }
+        viewModel.updateRepo = { [weak self] (indexPath, viewData) in
+            guard let self = self else { return }
+            guard indexPath.row < self.searchDisplayNode.dataSource.viewData.count else { return }
+            self.searchDisplayNode.dataSource.viewData[indexPath.row] = viewData
+            DispatchQueue.main.async {
+                self.searchDisplayNode.tableNode.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
         searchDisplayNode.textCallback = { [weak self] searchText in
             self?.viewModel.getRepos(with: searchText)
         }
-//        self.searchDisplayNode.tableNode.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
     }
     
     required init?(coder: NSCoder) {
@@ -55,8 +68,6 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         loginBarButton.image = UIImage(systemName: "person.crop.circle")
         loginBarButton.title = "login"
         self.navigationItem.rightBarButtonItem = loginBarButton
-        
-        viewModel.getRepos(with: "jest")
     }
         
     @objc func login() {

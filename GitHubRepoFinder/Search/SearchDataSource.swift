@@ -8,15 +8,35 @@
 import AsyncDisplayKit
 
 class SearchDataSource: NSObject, ASTableDataSource {
+    var viewData: [RepoCellViewData] = []
+    
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return viewData.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        // TODO: grab repo object here
-        return {
-            let node = RepoCellNode()
-            return node
+    func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
+        guard indexPath.row < viewData.count else { return RepoCellNode() }
+        let cellViewData = viewData[indexPath.row]
+
+        let node = RepoCellNode()
+        node.configure(with: cellViewData)
+        if cellViewData.imageURL == nil {
+            print("imageURL is nil, need to fetch it")
         }
+        return node
     }
+    
+//    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+//        guard indexPath.row < viewData.count else { return { RepoCellNode() } }
+//        let cellViewData = viewData[indexPath.row]
+//        
+//        return {
+//            let node = RepoCellNode()
+//            node.configure(with: cellViewData)
+//            if cellViewData.imageURL == nil {
+//                print("imageURL is nil, need to fetch it")
+//            }
+//            return node
+//        }
+//    }
 }

@@ -18,6 +18,8 @@ class RepoCellNode: ASCellNode {
     
     let topPadding: CGFloat = 2
     
+    var imageURLIsNil: Bool { return firstImage.url == nil }
+    
     override init() {
         super.init()
         addSubnode(firstImage)
@@ -28,6 +30,7 @@ class RepoCellNode: ASCellNode {
         configure()
                 
         shortDescription.style.preferredSize = CGSize(width: 200, height: 100)
+        firstImage.style.preferredSize = CGSize(width: 40, height: 60)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -54,16 +57,22 @@ class RepoCellNode: ASCellNode {
                                        justifyContent: .start,
                                        alignItems: .start,
                                        children: [imageInsetSpec, allTextVStack])
-        return firstImage.image == nil ? allTextVStack : finalHStack
+        return imageURLIsNil ? allTextVStack : finalHStack
     }
     
-    func configure() {
-        firstImage.image = UIImage(systemName: "photo.fill")
-        let titleAttrs: [NSAttributedString.Key: Any] = [.font: UIFont.boldSystemFont(ofSize: 18)]
-        title.attributedText = NSAttributedString(string: "Repo title", attributes: titleAttrs)
-        shortDescription.attributedText = NSAttributedString(string: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
-        language.attributedText = NSAttributedString(string: "Swift")
-        starsLabel.attributedText = NSAttributedString(string: "73 Stars")
+    func configure(with viewData: RepoCellViewData? = nil) {
+        if let viewData = viewData {
+            firstImage.url = viewData.imageURL
+            let titleText = viewData.title
+            let titleAttrs: [NSAttributedString.Key: Any] = [.font: UIFont.boldSystemFont(ofSize: 18)]
+            title.attributedText = NSAttributedString(string: titleText, attributes: titleAttrs)
+            shortDescription.attributedText = NSAttributedString(string: viewData.description)
+            language.attributedText = NSAttributedString(string: viewData.language)
+            starsLabel.attributedText = NSAttributedString(string: String(viewData.numStars))
+        }
+        transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
+        //        firstImage.defaultImage = UIImage(systemName: "photo.fill")
+
     }
 }
 
