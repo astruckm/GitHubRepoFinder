@@ -25,7 +25,6 @@ struct Item: Codable {
     let name: String
     let fullName: String
     let owner: Owner
-//    let htmlURL: String
     let stargazersCount: Int?
     let language: String?
     let description: String?
@@ -34,7 +33,6 @@ struct Item: Codable {
         case name
         case fullName = "full_name"
         case owner
-//        case htmlURL = "html_url"
         case stargazersCount = "stargazers_count"
         case language
         case description
