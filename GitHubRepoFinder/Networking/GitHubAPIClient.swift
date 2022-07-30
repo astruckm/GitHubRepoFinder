@@ -8,55 +8,6 @@
 import Foundation
 import UIKit
 
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-}
-
-enum GitHubRequestType {
-    case codeExchange
-    case getRepos
-    case getUser
-    case getReadMe
-    
-    var httpMethod: HTTPMethod {
-        switch self {
-        case .codeExchange: return .post
-        case .getRepos, .getUser, .getReadMe: return .get
-        }
-    }
-}
-
-enum GitHubReposSortOption {
-    case stars(SortOrder = .descending)
-    case forks(SortOrder = .descending)
-    case helpWantedIssues(SortOrder = .descending)
-    case updated(SortOrder = .descending)
-    
-    enum SortOrder: String {
-        case descending = "desc"
-        case ascending = "asc"
-    }
-    
-    var queryValue: String {
-        switch self {
-        case .stars: return "stars"
-        case .forks: return "forks"
-        case .helpWantedIssues: return "help-wanted-issues"
-        case .updated: return "updated"
-        }
-    }
-    
-    var order: String {
-        switch self {
-        case .stars(let sortOrder): return sortOrder.rawValue
-        case .forks(let sortOrder): return sortOrder.rawValue
-        case .helpWantedIssues(let sortOrder): return sortOrder.rawValue
-        case .updated(let sortOrder): return sortOrder.rawValue
-        }
-    }
-}
-
 
 class GitHubApiClient: HttpClientHandler {
     // MARK: URLs
@@ -130,7 +81,7 @@ class GitHubApiClient: HttpClientHandler {
         task.resume()
     }
     
-    func getReadMeImage(fullRepoName fullName: String, accessToken: String? = nil, completion: @escaping ((Result<UIImage, Error>) -> Void)) {
+    func getReadMeImage(fullRepoName fullName: String, accessToken: String? = nil, completion: @escaping ((Result<URL?, Error>) -> Void)) {
         guard let url = makeReadMeURL(forRepoFullName: fullName) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = GitHubRequestType.getReadMe.httpMethod.rawValue
@@ -144,18 +95,19 @@ class GitHubApiClient: HttpClientHandler {
             let dataResult = self.handleDataTaskErrors(data: data, response: response, error: error)
             switch dataResult {
             case .success(let data):
-                self.processRawReadMe(data: data, fullRepoName: fullName)
-//                let reposResult = self.processRepos(data: data)
-//                completion(reposResult)
+                let imageURL = self.processRawReadMe(data: data, fullRepoName: fullName)
+                completion(.success(imageURL))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
         task.resume()
-
     }
         
-    
+}
+
+// MARK: Process responses
+extension GitHubApiClient {
     func processUser(data: Data) -> Result<User, Error> {
         if let user = try? JSONDecoder().decode(User.self, from: data) {
             return .success(user)
@@ -174,27 +126,9 @@ class GitHubApiClient: HttpClientHandler {
         }
     }
     
-    func processRawReadMe(data: Data, fullRepoName fullName: String) {
+    func processRawReadMe(data: Data, fullRepoName fullName: String) -> URL? {
         let htmlStr = String(data: data, encoding: .utf8) ?? ""
-        if let range = htmlStr.range(of: "(src=\"|https://)(.*)(.jpg|.jpe|.png|.gif)", options: .regularExpression) {
-            print("htmlStr", htmlStr)
-            let imageURLStr = htmlStr[range.lowerBound...range.upperBound]
-                .replacingOccurrences(of: "src=\"", with: "")
-                .replacingOccurrences(of: "\"", with: "")
-            print("imageUrlStr: ", imageURLStr)
-            let fullURL: URL?
-            if imageURLStr.contains("https://") {
-                fullURL = URL(string: imageURLStr)
-            } else {
-                let fullURLStr = "https://raw.githubusercontent.com/" + fullName + "/main/" + imageURLStr
-                fullURL = URL(string: fullURLStr)
-            }
-            guard let url = fullURL else { return }
-            print("full url: ", url)
-            guard let imageData = try? Data(contentsOf: url) else { return }
-            print("imageData:", imageData)
-            let image = UIImage(data: imageData)
-            dump(image)
-        }
+        print("htmlStr: ", htmlStr)
+        return htmlStr.gitHubReadMeFirstImageURL(repoFullName: fullName)
     }
 }

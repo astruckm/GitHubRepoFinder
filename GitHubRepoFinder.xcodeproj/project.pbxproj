@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08BAD5C9BAECB6D7061F7927 /* Pods_GitHubRepoFinder_GitHubRepoFinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C2421293D3621B87CF072EA /* Pods_GitHubRepoFinder_GitHubRepoFinderUITests.framework */; };
 		721DAC44288D01B90026749A /* GitHubOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721DAC43288D01B90026749A /* GitHubOAuthClient.swift */; };
 		721DAC46288D47C10026749A /* SearchReposResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721DAC45288D47C10026749A /* SearchReposResponse.swift */; };
+		721DAC48289241BF0026749A /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721DAC47289241BF0026749A /* String+Extensions.swift */; };
+		721DAC4A289244010026749A /* GitHubApiTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721DAC49289244010026749A /* GitHubApiTypes.swift */; };
 		7234D844288995F000E3AB6F /* SearchTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7234D843288995F000E3AB6F /* SearchTextNode.swift */; };
 		7234D84628899C7500E3AB6F /* SearchDisplayNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7234D84528899C7500E3AB6F /* SearchDisplayNode.swift */; };
 		7234D849288B934200E3AB6F /* SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7234D848288B934200E3AB6F /* SearchDataSource.swift */; };
@@ -56,6 +57,8 @@
 		5D776FB23700CB1D123B3388 /* Pods_GitHubRepoFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubRepoFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		721DAC43288D01B90026749A /* GitHubOAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubOAuthClient.swift; sourceTree = "<group>"; };
 		721DAC45288D47C10026749A /* SearchReposResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReposResponse.swift; sourceTree = "<group>"; };
+		721DAC47289241BF0026749A /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		721DAC49289244010026749A /* GitHubApiTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubApiTypes.swift; sourceTree = "<group>"; };
 		7234D843288995F000E3AB6F /* SearchTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextNode.swift; sourceTree = "<group>"; };
 		7234D84528899C7500E3AB6F /* SearchDisplayNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDisplayNode.swift; sourceTree = "<group>"; };
 		7234D848288B934200E3AB6F /* SearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataSource.swift; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */,
+				721DAC49289244010026749A /* GitHubApiTypes.swift */,
 				721DAC43288D01B90026749A /* GitHubOAuthClient.swift */,
 				728E36A5287DAEC5007393DD /* NetworkError.swift */,
 				728E36A728805692007393DD /* HttpClientHandler.swift */,
@@ -203,6 +207,7 @@
 				723FE7B6287924FC00712166 /* AppDelegate.swift */,
 				723FE7B8287924FC00712166 /* SceneDelegate.swift */,
 				723FE7E9287A97A200712166 /* GitHubConstants.swift */,
+				721DAC47289241BF0026749A /* String+Extensions.swift */,
 				7234D8412889955D00E3AB6F /* Search */,
 				7234D8422889956600E3AB6F /* Model */,
 				7234D840288990AF00E3AB6F /* Networking */,
@@ -482,12 +487,14 @@
 				728E36A6287DAEC5007393DD /* NetworkError.swift in Sources */,
 				7234D84B288B94F300E3AB6F /* RepoCellNode.swift in Sources */,
 				723FE7BB287924FC00712166 /* SearchViewController.swift in Sources */,
+				721DAC48289241BF0026749A /* String+Extensions.swift in Sources */,
 				723FE7EC287AF31200712166 /* User.swift in Sources */,
 				723FE7B7287924FC00712166 /* AppDelegate.swift in Sources */,
 				728E36A828805692007393DD /* HttpClientHandler.swift in Sources */,
 				721DAC46288D47C10026749A /* SearchReposResponse.swift in Sources */,
 				7234D849288B934200E3AB6F /* SearchDataSource.swift in Sources */,
 				7234D844288995F000E3AB6F /* SearchTextNode.swift in Sources */,
+				721DAC4A289244010026749A /* GitHubApiTypes.swift in Sources */,
 				721DAC44288D01B90026749A /* GitHubOAuthClient.swift in Sources */,
 				7234D84628899C7500E3AB6F /* SearchDisplayNode.swift in Sources */,
 				72BA10EA288847A8006F0B3E /* SearchViewModel.swift in Sources */,

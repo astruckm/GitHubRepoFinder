@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+}
+
 protocol HttpClientHandler: AnyObject {
     func handleDataTaskErrors(data: Data?, response: URLResponse?, error: Error?) -> Result<Data, NetworkingError>
 }
