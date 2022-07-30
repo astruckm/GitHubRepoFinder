@@ -13,7 +13,7 @@ class SearchTextNode: ASDisplayNode {
     }
     var didEndEditing: ((String) -> Void)?
     
-    init(height: CGFloat, didEndEditing: @escaping ((String) -> Void)) {
+    init(height: CGFloat) {
         super.init()
         setViewBlock {
             let searchView: UISearchBar = .init()
@@ -25,7 +25,6 @@ class SearchTextNode: ASDisplayNode {
             return searchView
         }
         self.style.height = ASDimension(unit: .points, value: height)
-        self.didEndEditing = didEndEditing
         self.backgroundColor = .systemBackground
     }
                 

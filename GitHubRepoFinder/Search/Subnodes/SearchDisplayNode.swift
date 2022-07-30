@@ -9,16 +9,19 @@ import AsyncDisplayKit
 import SwiftUI
 
 class SearchDisplayNode: ASDisplayNode {
-    let textNode = SearchTextNode(height: 50) { text in
-        print("didEnter text: \(text) in search bar")
-    }
+    let textNode: SearchTextNode
     let tableNode = ASTableNode(style: .plain)
     let dataSource = SearchDataSource()
+    var textCallback: ((String) -> Void)?
     
     override init() {
+        self.textNode = SearchTextNode(height: 50)
         super.init()
         self.addSubnode(textNode)
         self.addSubnode(tableNode)
+        self.textNode.didEndEditing = { [weak self] text in
+            self?.textCallback?(text)
+        }
         
         tableNode.dataSource = dataSource
         tableNode.delegate = self
@@ -40,10 +43,6 @@ class SearchDisplayNode: ASDisplayNode {
     }
 }
 
-extension SearchDisplayNode: ASEditableTextNodeDelegate {
-    
-}
-
 extension SearchDisplayNode: ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         let min = CGSize(width: UIScreen.main.bounds.width, height: 100)
@@ -51,7 +50,6 @@ extension SearchDisplayNode: ASTableDelegate {
         return ASSizeRange(min: min, max: max)
     }
     
-    // TODO: use to make sticky header
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         return nil
@@ -60,6 +58,11 @@ extension SearchDisplayNode: ASTableDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 0
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        tableNode.deselectRow(at: indexPath, animated: true)
+        print("didSelectRowAt")
     }
 
 }

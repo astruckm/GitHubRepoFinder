@@ -25,12 +25,20 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
             let isPortrait = (UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown)
             return ASInsetLayoutSpec(insets: UIEdgeInsets(top: isPortrait ? 68 : 44, left: 0, bottom: 0, right: 0), child: self.searchDisplayNode)
         }
+        searchDisplayNode.textCallback = { [weak self] searchText in
+            self?.viewModel.getRepos(with: searchText)
+        }
+//        self.searchDisplayNode.tableNode.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
     }
     
     required init?(coder: NSCoder) {
         viewModel = SearchViewModel()
         searchDisplayNode = SearchDisplayNode()
         super.init(coder: coder)
+        
+        searchDisplayNode.textCallback = { [weak self] searchText in
+            self?.viewModel.getRepos(with: searchText)
+        }
     }
     
     override func viewDidLoad() {

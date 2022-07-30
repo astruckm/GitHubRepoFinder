@@ -12,6 +12,8 @@ class SearchViewModel {
     let oauthClient = GitHubOAuthClient()
     var user: User?
     var repos: SearchReposResponse?
+    var reposViewData: [RepoCellViewData] = []
+    var updateReposUI: (() -> Void)?
 
     func handleGitHubAuthCallback(_ url: URL?, error: Error?) {
         if let error = error {
@@ -54,20 +56,19 @@ class SearchViewModel {
     func getRepos(with searchQuery: String) {
         guard let getReposURL = client.makeFullSearchReposURL(from: searchQuery) else { return }
         client.getRepos(fromURL: getReposURL, accessToken: oauthClient.accessToken) { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .success(let repos):
-                self?.repos = repos
-                print("Repos total count: ", repos.totalCount)
-                print("Repos num Items: ", repos.items.count)
-                for item in repos.items {
-                    print("fullName: ", item.fullName)
-                    print("Name: ", item.name)
-                    print("Description: ", item.description)
-                    print("Language: ", item.language)
-                    print("Stargazers count: ", item.stargazersCount)
-                    if item.fullName == "facebook/jest" {
-                        self?.getReadMeImage(repoFullName: item.fullName)
-                    }
+            case .success(let reposSearchResponse):
+                self.repos = reposSearchResponse
+                print("Repos total count: ", reposSearchResponse.totalCount)
+                print("Repos num Items: ", reposSearchResponse.items.count)
+                self.populateViewData(fromSearchReposResponse: reposSearchResponse)
+                for item in reposSearchResponse.items {
+//                    print("name: ", item.name)
+//                    print("description: ", item.description)
+//                    print("language: ", item.language)
+//                    print("stars: ", item.stargazersCount)
+                    self.getReadMeImageURL(repoItem: item)
                 }
             case .failure(let error):
                 print("error getting repos: ", error)
