@@ -7,6 +7,22 @@
 
 import Foundation
 
+class RepoCellViewData {
+    let title: String
+    let description: String
+    let language: String
+    let numStars: Int
+    var imageURL: URL?
+    
+    init(title: String, description: String, language: String, numStars: Int, imageURL: URL? = nil) {
+        self.title = title
+        self.description = description
+        self.language = language
+        self.numStars = numStars
+        self.imageURL = imageURL
+    }
+}
+
 class SearchViewModel {
     let client = GitHubApiClient()
     let oauthClient = GitHubOAuthClient()
@@ -76,15 +92,23 @@ class SearchViewModel {
         }
     }
     
-    func getReadMeImage(repoFullName fullName: String) {
+    func getReadMeImageURL(repoItem item: Item) {
+        let fullName = item.fullName
         client.getReadMeImage(fullRepoName: fullName, accessToken: oauthClient.accessToken) { result in
             switch result {
-            case .success(let img): break
+            case .success(let url):
+                print("fetched image url: ", url)
+                // TODO: assign to item
             case .failure(let error):
                 print("error fetching image: \(error)")
             }
         }
     }
     
+    func populateViewData(fromSearchReposResponse response: SearchReposResponse) {
+        // TODO: make description be only first 1000 characters or whatever, make sure that language property corresponds to most used one. Check if stargazersCount is every nil
+        self.reposViewData = response.items.map { RepoCellViewData(title: $0.name, description: $0.description ?? "", language: $0.language ?? "", numStars: $0.stargazersCount ?? 0) }
+        self.updateReposUI?()
+    }
 
 }
