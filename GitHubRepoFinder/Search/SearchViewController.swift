@@ -42,11 +42,11 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         searchDisplayNode.textCallback = { [weak viewModel] searchText in
             viewModel?.getRepos(with: searchText)
         }
-        searchDisplayNode.rowSelectionAction = { [weak viewModel] indexPath in
-            print("indexPath: ", indexPath)
-            guard let viewData = viewModel?.reposViewData, indexPath.row < viewData.count ?? -1 else { return }
-            print("viewData: ")
-            dump(viewData[indexPath.row])
+        searchDisplayNode.rowSelectionAction = { [weak self] indexPath in
+            guard let viewData = self?.viewModel.reposViewData, indexPath.row < viewData.count ?? -1 else { return }
+            let viewDataObj = viewData[indexPath.row]
+            let detailVC = RepoDetailViewController(readMe: viewDataObj.readMeFullHTML ?? ""/*withRequest: viewDataObj.readMeUrlRequest*/)
+            self?.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     

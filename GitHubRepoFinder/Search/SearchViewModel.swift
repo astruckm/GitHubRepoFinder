@@ -12,15 +12,20 @@ class RepoCellViewData {
     let description: String
     let language: String
     let numStars: Int
-    var repoFullHTML: String?
+    var readMeFullHTML: String?
     var imageURL: URL?
+    
+    var readMeUrlRequest: URLRequest? {
+        guard let html = readMeFullHTML, let url = URL(string: html) else { return nil }
+        return URLRequest(url: url)
+    }
     
     init(title: String, description: String, language: String, numStars: Int, repoFullHTML: String? = nil, imageURL: URL? = nil) {
         self.title = title
         self.description = description
         self.language = language
         self.numStars = numStars
-        self.repoFullHTML = repoFullHTML
+        self.readMeFullHTML = repoFullHTML
         self.imageURL = imageURL
     }
 }
@@ -104,7 +109,8 @@ class SearchViewModel {
                     guard index < self.reposViewData.count else { return }
                     let indexPath = IndexPath(row: index, section: 0)
                     let newViewData = self.reposViewData[index]
-                    newViewData.repoFullHTML = repoContents.html
+                    print("repoContents html: ", repoContents.html)
+                    newViewData.readMeFullHTML = repoContents.html
                     newViewData.imageURL = repoContents.imageURL
                     
                     self.reposViewData[index] = newViewData

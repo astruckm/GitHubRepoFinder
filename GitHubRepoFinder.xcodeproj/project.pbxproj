@@ -24,6 +24,8 @@
 		723FE7E82879AA7D00712166 /* GitHubAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */; };
 		723FE7EA287A97A200712166 /* GitHubConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7E9287A97A200712166 /* GitHubConstants.swift */; };
 		723FE7EC287AF31200712166 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7EB287AF31200712166 /* User.swift */; };
+		7269EA202896160D009936A7 /* RepoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269EA1F2896160D009936A7 /* RepoDetailViewController.swift */; };
+		7269EA222896182F009936A7 /* RepoDetailWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269EA212896182F009936A7 /* RepoDetailWebView.swift */; };
 		728E36A6287DAEC5007393DD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E36A5287DAEC5007393DD /* NetworkError.swift */; };
 		728E36A828805692007393DD /* HttpClientHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E36A728805692007393DD /* HttpClientHandler.swift */; };
 		72BA10EA288847A8006F0B3E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA10E9288847A8006F0B3E /* SearchViewModel.swift */; };
@@ -66,6 +68,8 @@
 		723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIClient.swift; sourceTree = "<group>"; };
 		723FE7E9287A97A200712166 /* GitHubConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubConstants.swift; sourceTree = "<group>"; };
 		723FE7EB287AF31200712166 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7269EA1F2896160D009936A7 /* RepoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailViewController.swift; sourceTree = "<group>"; };
+		7269EA212896182F009936A7 /* RepoDetailWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailWebView.swift; sourceTree = "<group>"; };
 		728E36A5287DAEC5007393DD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		728E36A728805692007393DD /* HttpClientHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientHandler.swift; sourceTree = "<group>"; };
 		72BA10E9288847A8006F0B3E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				723FE7E9287A97A200712166 /* GitHubConstants.swift */,
 				721DAC47289241BF0026749A /* String+Extensions.swift */,
 				7234D8412889955D00E3AB6F /* Search */,
+				7269EA1E289615D3009936A7 /* RepoDetail */,
 				7234D8422889956600E3AB6F /* Model */,
 				7234D840288990AF00E3AB6F /* Networking */,
 				723FE7BF287924FD00712166 /* Assets.xcassets */,
@@ -202,6 +207,15 @@
 				723FE7CD287924FD00712166 /* GitHubRepoFinderTests.swift */,
 			);
 			path = GitHubRepoFinderTests;
+			sourceTree = "<group>";
+		};
+		7269EA1E289615D3009936A7 /* RepoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				7269EA1F2896160D009936A7 /* RepoDetailViewController.swift */,
+				7269EA212896182F009936A7 /* RepoDetailWebView.swift */,
+			);
+			path = RepoDetail;
 			sourceTree = "<group>";
 		};
 		D22BAC19EBC5E1169EEB9E24 /* Frameworks */ = {
@@ -394,10 +408,12 @@
 				7234D844288995F000E3AB6F /* SearchTextNode.swift in Sources */,
 				721DAC4A289244010026749A /* GitHubApiTypes.swift in Sources */,
 				721DAC44288D01B90026749A /* GitHubOAuthClient.swift in Sources */,
+				7269EA222896182F009936A7 /* RepoDetailWebView.swift in Sources */,
 				7234D84628899C7500E3AB6F /* SearchDisplayNode.swift in Sources */,
 				72BA10EA288847A8006F0B3E /* SearchViewModel.swift in Sources */,
 				723FE7EA287A97A200712166 /* GitHubConstants.swift in Sources */,
 				723FE7B9287924FC00712166 /* SceneDelegate.swift in Sources */,
+				7269EA202896160D009936A7 /* RepoDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
