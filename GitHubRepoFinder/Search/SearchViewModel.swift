@@ -12,13 +12,15 @@ class RepoCellViewData {
     let description: String
     let language: String
     let numStars: Int
+    var repoFullHTML: String?
     var imageURL: URL?
     
-    init(title: String, description: String, language: String, numStars: Int, imageURL: URL? = nil) {
+    init(title: String, description: String, language: String, numStars: Int, repoFullHTML: String? = nil, imageURL: URL? = nil) {
         self.title = title
         self.description = description
         self.language = language
         self.numStars = numStars
+        self.repoFullHTML = repoFullHTML
         self.imageURL = imageURL
     }
 }
@@ -97,12 +99,13 @@ class SearchViewModel {
         client.getReadMeImage(fullRepoName: fullName, accessToken: oauthClient.accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let url):
+            case .success(let repoContents):
                 self.reposViewDataUpdateQueue.async {
                     guard index < self.reposViewData.count else { return }
                     let indexPath = IndexPath(row: index, section: 0)
                     let newViewData = self.reposViewData[index]
-                    newViewData.imageURL = url
+                    newViewData.repoFullHTML = repoContents.html
+                    newViewData.imageURL = repoContents.imageURL
                     
                     self.reposViewData[index] = newViewData
                     self.updateRepo?(indexPath, newViewData)

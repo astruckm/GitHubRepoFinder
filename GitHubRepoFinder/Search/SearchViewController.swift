@@ -39,8 +39,14 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
                 self.searchDisplayNode.tableNode.reloadRows(at: [indexPath], with: .automatic)
             }
         }
-        searchDisplayNode.textCallback = { [weak self] searchText in
-            self?.viewModel.getRepos(with: searchText)
+        searchDisplayNode.textCallback = { [weak viewModel] searchText in
+            viewModel?.getRepos(with: searchText)
+        }
+        searchDisplayNode.rowSelectionAction = { [weak viewModel] indexPath in
+            print("indexPath: ", indexPath)
+            guard let viewData = viewModel?.reposViewData, indexPath.row < viewData.count ?? -1 else { return }
+            print("viewData: ")
+            dump(viewData[indexPath.row])
         }
     }
     
@@ -89,27 +95,3 @@ extension SearchViewController: ASWebAuthenticationPresentationContextProviding 
         return view.window ?? UIWindow()
     }
 }
-
-extension SearchViewController: ASTableDataSource {
-    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        // TODO: grab repo object here
-        return {
-            let node = ASCellNode()
-            node.backgroundColor = .blue
-            return node
-        }
-    }
-}
-
-extension SearchViewController: ASTableDelegate {
-    func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
-        let min = CGSize(width: self.view.bounds.width, height: 100)
-        let max = CGSize(width: self.view.bounds.width, height: 200)
-        return ASSizeRange(min: min, max: max)
-    }
-}
-

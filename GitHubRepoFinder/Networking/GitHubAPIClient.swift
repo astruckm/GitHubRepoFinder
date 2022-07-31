@@ -81,7 +81,7 @@ class GitHubApiClient: HttpClientHandler {
         task.resume()
     }
     
-    func getReadMeImage(fullRepoName fullName: String, accessToken: String? = nil, completion: @escaping ((Result<URL?, Error>) -> Void)) {
+    func getReadMeImage(fullRepoName fullName: String, accessToken: String? = nil, completion: @escaping ((Result<(html: String, imageURL: URL?), Error>) -> Void)) {
         guard let url = makeReadMeURL(forRepoFullName: fullName) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = GitHubRequestType.getReadMe.httpMethod.rawValue
@@ -95,8 +95,8 @@ class GitHubApiClient: HttpClientHandler {
             let dataResult = self.handleDataTaskErrors(data: data, response: response, error: error)
             switch dataResult {
             case .success(let data):
-                let imageURL = self.processRawReadMe(data: data, fullRepoName: fullName)
-                completion(.success(imageURL))
+                let repoContents = self.processRawReadMe(data: data, fullRepoName: fullName)
+                completion(.success(repoContents))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -126,8 +126,9 @@ extension GitHubApiClient {
         }
     }
     
-    func processRawReadMe(data: Data, fullRepoName fullName: String) -> URL? {
+    func processRawReadMe(data: Data, fullRepoName fullName: String) -> (html: String, imageURL: URL?) {
         let htmlStr = String(data: data, encoding: .utf8) ?? ""
-        return htmlStr.gitHubReadMeFirstImageURL(repoFullName: fullName)
+        let imageURL = htmlStr.gitHubReadMeFirstImageURL(repoFullName: fullName)
+        return (htmlStr, imageURL)
     }
 }

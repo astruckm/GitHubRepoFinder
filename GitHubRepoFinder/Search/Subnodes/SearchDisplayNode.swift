@@ -13,6 +13,7 @@ class SearchDisplayNode: ASDisplayNode {
     let tableNode = ASTableNode(style: .plain)
     let dataSource = SearchDataSource()
     var textCallback: ((String) -> Void)?
+    var rowSelectionAction: ((IndexPath) -> Void)?
     
     override init() {
         self.textNode = SearchTextNode(height: 50)
@@ -62,7 +63,7 @@ extension SearchDisplayNode: ASTableDelegate {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: true)
-        print("didSelectRowAt")
+        rowSelectionAction?(indexPath)
     }
 
 }
