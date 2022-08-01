@@ -9,12 +9,16 @@ import AsyncDisplayKit
 import WebKit
 
 class RepoDetailWebView: ASDisplayNode {
-    init(urlRequest: URLRequest) {
+    init(html: String?) {
         super.init()
+
+        guard let html = html else { return }
+
         setViewBlock {
             let webView = WKWebView()
-            webView.load(urlRequest)
+            webView.loadHTMLString(html, baseURL: nil)
             return webView
         }
+        self.backgroundColor = .green
     }
 }

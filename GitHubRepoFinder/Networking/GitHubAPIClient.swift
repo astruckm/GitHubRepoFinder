@@ -85,7 +85,7 @@ class GitHubApiClient: HttpClientHandler {
         guard let url = makeReadMeURL(forRepoFullName: fullName) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = GitHubRequestType.getReadMe.httpMethod.rawValue
-        request.setValue("application/vnd.github.3.raw", forHTTPHeaderField: "Accept")
+        request.setValue("application/vnd.github.3.html", forHTTPHeaderField: "Accept")
         if let accessToken = accessToken {
             request.setValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
         }

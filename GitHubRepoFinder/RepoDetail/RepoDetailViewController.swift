@@ -9,36 +9,22 @@ import AsyncDisplayKit
 import WebKit
 
 class RepoDetailViewController: ASDKViewController<ASDisplayNode> {
-    let scrollNode = ASScrollNode()
-    let textNode = ASTextNode()
+    let readMeWebView: RepoDetailWebView
 
     init(readMe: String) {
+        readMeWebView = RepoDetailWebView(html: readMe)
+        
         let baseNode = ASDisplayNode()
-        textNode.attributedText = NSAttributedString(string: readMe)
-        baseNode.addSubnode(scrollNode)
-        scrollNode.addSubnode(textNode)
+        baseNode.addSubnode(readMeWebView)
         super.init(node: baseNode)
         
-        scrollNode.style.flexGrow = 1.0
-        scrollNode.automaticallyManagesContentSize = true
-        
-        self.scrollNode.layoutSpecBlock = { node, constrainedSize in
-            let textNodeSpec = ASInsetLayoutSpec(insets: .zero, child: self.textNode)
-            let scrollStackSpec = ASStackLayoutSpec(direction: .vertical,
-                                                    spacing: 0,
-                                                    justifyContent: .start,
-                                                    alignItems: .start,
-                                                    children: [textNodeSpec])
-            return scrollStackSpec
-
-        }
         self.node.layoutSpecBlock = { node, constrainedSize in
-            return ASInsetLayoutSpec(insets: .zero, child: self.scrollNode)
+            return ASInsetLayoutSpec(insets: .zero, child: self.readMeWebView)
         }
-
     }
     
     required init?(coder: NSCoder) {
+        readMeWebView = RepoDetailWebView(html: "")
         super.init(coder: coder)
     }
     
