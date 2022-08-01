@@ -109,7 +109,6 @@ class SearchViewModel {
                     guard index < self.reposViewData.count else { return }
                     let indexPath = IndexPath(row: index, section: 0)
                     let newViewData = self.reposViewData[index]
-                    print("repoContents html: ", repoContents.html)
                     newViewData.readMeFullHTML = repoContents.html
                     newViewData.imageURL = repoContents.imageURL
                     

@@ -9,7 +9,6 @@ import AsyncDisplayKit
 import SwiftUI
 
 class RepoCellNode: ASCellNode {
-    // TODO: use ASNetworkImageNode
     let firstImage = ASNetworkImageNode()
     let title = ASTextNode()
     let shortDescription = ASTextNode()
@@ -31,6 +30,8 @@ class RepoCellNode: ASCellNode {
                 
         shortDescription.style.preferredSize = CGSize(width: 200, height: 100)
         firstImage.style.preferredSize = CGSize(width: 40, height: 60)
+        
+        firstImage.defaultImage = UIImage(systemName: "photo.fill")
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -71,8 +72,6 @@ class RepoCellNode: ASCellNode {
             starsLabel.attributedText = NSAttributedString(string: String(viewData.numStars))
         }
         transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
-        //        firstImage.defaultImage = UIImage(systemName: "photo.fill")
-
     }
 }
 
