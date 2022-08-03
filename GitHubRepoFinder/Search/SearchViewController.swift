@@ -43,9 +43,9 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
             viewModel?.getRepos(with: searchText)
         }
         searchDisplayNode.rowSelectionAction = { [weak self] indexPath in
-            guard let viewData = self?.viewModel.reposViewData, indexPath.row < viewData.count ?? -1 else { return }
+            guard let viewData = self?.viewModel.reposViewData, indexPath.row < viewData.count else { return }
             let viewDataObj = viewData[indexPath.row]
-            let detailVC = RepoDetailViewController(readMe: viewDataObj.readMeFullHTML ?? ""/*withRequest: viewDataObj.readMeUrlRequest*/)
+            let detailVC = RepoDetailViewController(readMe: viewDataObj.readMeFullHTML ?? "")
             self?.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
