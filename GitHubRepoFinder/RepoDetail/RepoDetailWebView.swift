@@ -19,6 +19,5 @@ class RepoDetailWebView: ASDisplayNode {
             webView.loadHTMLString(html, baseURL: nil)
             return webView
         }
-        self.backgroundColor = .green
     }
 }

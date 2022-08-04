@@ -66,7 +66,6 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         node.backgroundColor = .systemBackground
         
         navigationController?.navigationBar.backgroundColor = .systemGray6
-//        navigationController?.navigationBar.shadowImage = UIColor.darkGray.image(CGSize(width: view.frame.width, height: 1))
         self.navigationItem.title = "Repo Finder"
         let loginBarButton = UIBarButtonItem()
         loginBarButton.action = #selector(login)
