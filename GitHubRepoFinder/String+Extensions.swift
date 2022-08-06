@@ -20,13 +20,12 @@ extension String {
             } else if imageURLStr.contains("http://") {
                 return nil
             } else {
-                let fullURLStr = "https://raw.githubusercontent.com/" + fullName + "/main/" + imageURLStr
+                let fullURLStr = "https://raw.githubusercontent.com/" + fullName + "/master/" + imageURLStr
                 fullURL = URL(string: fullURLStr)
             }
             guard let url = fullURL else { return nil }
             return url
         }
         return nil
-
     }
 }
