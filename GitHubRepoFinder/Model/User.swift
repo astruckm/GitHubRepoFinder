@@ -9,7 +9,7 @@ import Foundation
 
 struct User: Codable {
     let login: String
-    let name: String
+    let name: String?
     let htmlURL: String
     
     enum CodingKeys: String, CodingKey {
