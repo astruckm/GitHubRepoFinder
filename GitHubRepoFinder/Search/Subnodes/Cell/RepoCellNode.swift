@@ -30,6 +30,8 @@ class RepoCellNode: ASCellNode {
                 
         shortDescription.style.preferredSize = CGSize(width: 200, height: 100)
         firstImage.style.preferredSize = CGSize(width: 40, height: 60)
+        
+        firstImage.shouldRetryImageDownload = true
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -63,6 +65,9 @@ class RepoCellNode: ASCellNode {
     func configure(with viewData: RepoCellViewData? = nil) {
         if let viewData = viewData {
             firstImage.url = viewData.imageURL
+            if viewData.imageURL != nil {
+                firstImage.defaultImage = UIImage(systemName: "photo.fill")
+            }
             let titleText = viewData.title
             let titleAttrs: [NSAttributedString.Key: Any] = [.font: UIFont.boldSystemFont(ofSize: 18)]
             title.attributedText = NSAttributedString(string: titleText, attributes: titleAttrs)
@@ -74,7 +79,6 @@ class RepoCellNode: ASCellNode {
         transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
     }
 }
-
 
 struct RepoCellNodeSwiftUI: UIViewRepresentable {
     typealias UIViewType = UIView
