@@ -20,23 +20,7 @@ class SearchDataSource: NSObject, ASTableDataSource {
 
         let cell = RepoCellNode()
         cell.configure(with: cellViewData)
-        if cellViewData.imageURL == nil {
-            print("imageURL is nil, need to fetch it")
-        }
         return cell
     }
     
-//    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-//        guard indexPath.row < viewData.count else { return { RepoCellNode() } }
-//        let cellViewData = viewData[indexPath.row]
-//        
-//        return {
-//            let node = RepoCellNode()
-//            node.configure(with: cellViewData)
-//            if cellViewData.imageURL == nil {
-//                print("imageURL is nil, need to fetch it")
-//            }
-//            return node
-//        }
-//    }
 }
