@@ -45,19 +45,11 @@ class SearchDisplayNode: ASDisplayNode {
 }
 
 extension SearchDisplayNode: ASTableDelegate {
-    func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
-        let min = CGSize(width: UIScreen.main.bounds.width, height: 100)
-        let max = CGSize(width: UIScreen.main.bounds.width, height: 200)
-        return ASSizeRange(min: min, max: max)
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         return 0
     }
     

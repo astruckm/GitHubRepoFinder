@@ -14,12 +14,7 @@ class RepoCellViewData {
     let numStars: Int
     var readMeFullHTML: String?
     var imageURL: URL?
-    
-    var readMeUrlRequest: URLRequest? {
-        guard let html = readMeFullHTML, let url = URL(string: html) else { return nil }
-        return URLRequest(url: url)
-    }
-    
+        
     init(title: String, description: String, language: String, numStars: Int, repoFullHTML: String? = nil, imageURL: URL? = nil) {
         self.title = title
         self.description = description
