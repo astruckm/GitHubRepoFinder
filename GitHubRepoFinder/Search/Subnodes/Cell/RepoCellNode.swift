@@ -41,16 +41,16 @@ class RepoCellNode: ASCellNode {
                                                 justifyContent: .end,
                                                 alignItems: .end,
                                                 children: [language, starsLabel])
-        let titleLangStarsHStack = ASStackLayoutSpec(direction: .horizontal,
-                                                     spacing: 4,
+        let titleLangStarsVStack = ASStackLayoutSpec(direction: .vertical,
+                                                     spacing: 0,
                                                      justifyContent: .spaceBetween,
                                                      alignItems: .center,
                                                      children: [title, langStarsHStack])
         let allTextVStack = ASStackLayoutSpec(direction: .vertical,
-                                           spacing: 0,
+                                           spacing: 8,
                                            justifyContent: .start,
                                            alignItems: .start,
-                                           children: [titleLangStarsHStack, shortDescription])
+                                           children: [titleLangStarsVStack, shortDescription])
 
         
         let finalHStack = ASStackLayoutSpec(direction: .horizontal,
