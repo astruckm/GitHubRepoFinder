@@ -8,7 +8,6 @@
 import Foundation
 
 extension String {
-    // TODO: unit test
     func gitHubReadMeFirstImageURL(repoFullName fullName: String) -> URL? {
         if let range = self.range(of: "(src=\"|https://)(.*)(.jpg|.jpe|.png|.gif)", options: .regularExpression) {
             let imageURLStr = self[range.lowerBound...range.upperBound]
