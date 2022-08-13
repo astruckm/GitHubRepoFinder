@@ -23,19 +23,24 @@ class DataController {
     }
     
     func saveRepos(_ repos: [RepoCellViewData]) {
-        guard let entity = NSEntityDescription.entity(forEntityName: "SavedRepo", in: persistentContainer.viewContext) else { return }
-        let context = persistentContainer.viewContext
-        // TODO: set values and save for each repo
-        let repo = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
-//        gifRef.setValue(title, forKey: "title")
-//        gifRef.setValue(url, forKey: "url")
-//        gifRef.setValue(dateAdded as NSDate, forKey: "dateAdded")
-        do {
-            try context.save()
-            self.repos.append(repo)
-            print("there are now \(repos.count) saved repos")
-        } catch let error as NSError {
-            print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
+        for repo in repos {
+            guard let entity = NSEntityDescription.entity(forEntityName: "SavedRepo", in: persistentContainer.viewContext) else { continue }
+            let context = persistentContainer.viewContext
+            let repoManagedObj = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
+            repoManagedObj.setValue(repo.title, forKey: "title")
+            repoManagedObj.setValue(repo.description, forKey: "repoDescription")
+            repoManagedObj.setValue(repo.language, forKey: "language")
+            repoManagedObj.setValue(repo.numStars, forKey: "numStars")
+            repoManagedObj.setValue(repo.readMeFullHTML, forKey: "readMe")
+            repoManagedObj.setValue(repo.imageURL, forKey: "imageURL")
+            do {
+                try context.save()
+                self.repos.append(repoManagedObj)
+                print("there are now \(repos.count) saved repos")
+            } catch let error as NSError {
+                print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
+            }
+
         }
     }
     
