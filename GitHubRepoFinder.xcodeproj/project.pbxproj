@@ -30,6 +30,7 @@
 		728E36A828805692007393DD /* HttpClientHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E36A728805692007393DD /* HttpClientHandler.swift */; };
 		72BA10EA288847A8006F0B3E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA10E9288847A8006F0B3E /* SearchViewModel.swift */; };
 		72F4817828A7629900E17885 /* RepoCellViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F4817728A7629900E17885 /* RepoCellViewData.swift */; };
+		72F4817B28A765E400E17885 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F4817A28A765E400E17885 /* DataController.swift */; };
 		D78932F40E54D6A9CF8BB0E4 /* Pods_GitHubRepoFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D776FB23700CB1D123B3388 /* Pods_GitHubRepoFinderTests.framework */; };
 		FB9F81AD5A371C36A922C231 /* Pods_GitHubRepoFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39594F88C74CAA33FC76711D /* Pods_GitHubRepoFinder.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		728E36A728805692007393DD /* HttpClientHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientHandler.swift; sourceTree = "<group>"; };
 		72BA10E9288847A8006F0B3E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		72F4817728A7629900E17885 /* RepoCellViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCellViewData.swift; sourceTree = "<group>"; };
+		72F4817A28A765E400E17885 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		9BDABD7D64860E3BD78D11A2 /* Pods-GitHubRepoFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepoFinder.release.xcconfig"; path = "Target Support Files/Pods-GitHubRepoFinder/Pods-GitHubRepoFinder.release.xcconfig"; sourceTree = "<group>"; };
 		9DDF927BDBC6D1A3132A1FB8 /* Pods-GitHubRepoFinder-GitHubRepoFinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepoFinder-GitHubRepoFinderUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitHubRepoFinder-GitHubRepoFinderUITests/Pods-GitHubRepoFinder-GitHubRepoFinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C2F32BEBAAC463A6366E6590 /* Pods-GitHubRepoFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepoFinderTests.release.xcconfig"; path = "Target Support Files/Pods-GitHubRepoFinderTests/Pods-GitHubRepoFinderTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				7269EA1E289615D3009936A7 /* RepoDetail */,
 				7234D8422889956600E3AB6F /* Model */,
 				7234D840288990AF00E3AB6F /* Networking */,
+				72F4817928A765B700E17885 /* Persistence */,
 				723FE7BF287924FD00712166 /* Assets.xcassets */,
 				723FE7C1287924FD00712166 /* LaunchScreen.storyboard */,
 				723FE7C4287924FD00712166 /* Info.plist */,
@@ -227,6 +230,14 @@
 				72F4817728A7629900E17885 /* RepoCellViewData.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		72F4817928A765B700E17885 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				72F4817A28A765E400E17885 /* DataController.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		D22BAC19EBC5E1169EEB9E24 /* Frameworks */ = {
@@ -413,6 +424,7 @@
 				721DAC48289241BF0026749A /* String+Extensions.swift in Sources */,
 				723FE7EC287AF31200712166 /* User.swift in Sources */,
 				723FE7B7287924FC00712166 /* AppDelegate.swift in Sources */,
+				72F4817B28A765E400E17885 /* DataController.swift in Sources */,
 				728E36A828805692007393DD /* HttpClientHandler.swift in Sources */,
 				72F4817828A7629900E17885 /* RepoCellViewData.swift in Sources */,
 				721DAC46288D47C10026749A /* SearchReposResponse.swift in Sources */,
