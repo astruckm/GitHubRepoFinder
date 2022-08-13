@@ -31,6 +31,7 @@
 		72BA10EA288847A8006F0B3E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA10E9288847A8006F0B3E /* SearchViewModel.swift */; };
 		72F4817828A7629900E17885 /* RepoCellViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F4817728A7629900E17885 /* RepoCellViewData.swift */; };
 		72F4817B28A765E400E17885 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F4817A28A765E400E17885 /* DataController.swift */; };
+		72F4817E28A76AF500E17885 /* SavedReposModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72F4817C28A76AF500E17885 /* SavedReposModel.xcdatamodeld */; };
 		D78932F40E54D6A9CF8BB0E4 /* Pods_GitHubRepoFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D776FB23700CB1D123B3388 /* Pods_GitHubRepoFinderTests.framework */; };
 		FB9F81AD5A371C36A922C231 /* Pods_GitHubRepoFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39594F88C74CAA33FC76711D /* Pods_GitHubRepoFinder.framework */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		72BA10E9288847A8006F0B3E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		72F4817728A7629900E17885 /* RepoCellViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCellViewData.swift; sourceTree = "<group>"; };
 		72F4817A28A765E400E17885 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		72F4817D28A76AF500E17885 /* SavedReposModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedReposModel.xcdatamodel; sourceTree = "<group>"; };
 		9BDABD7D64860E3BD78D11A2 /* Pods-GitHubRepoFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepoFinder.release.xcconfig"; path = "Target Support Files/Pods-GitHubRepoFinder/Pods-GitHubRepoFinder.release.xcconfig"; sourceTree = "<group>"; };
 		9DDF927BDBC6D1A3132A1FB8 /* Pods-GitHubRepoFinder-GitHubRepoFinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepoFinder-GitHubRepoFinderUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitHubRepoFinder-GitHubRepoFinderUITests/Pods-GitHubRepoFinder-GitHubRepoFinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C2F32BEBAAC463A6366E6590 /* Pods-GitHubRepoFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepoFinderTests.release.xcconfig"; path = "Target Support Files/Pods-GitHubRepoFinderTests/Pods-GitHubRepoFinderTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				72F4817A28A765E400E17885 /* DataController.swift */,
+				72F4817C28A76AF500E17885 /* SavedReposModel.xcdatamodeld */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				721DAC46288D47C10026749A /* SearchReposResponse.swift in Sources */,
 				7234D849288B934200E3AB6F /* SearchDataSource.swift in Sources */,
 				7234D844288995F000E3AB6F /* SearchTextNode.swift in Sources */,
+				72F4817E28A76AF500E17885 /* SavedReposModel.xcdatamodeld in Sources */,
 				721DAC4A289244010026749A /* GitHubApiTypes.swift in Sources */,
 				721DAC44288D01B90026749A /* GitHubOAuthClient.swift in Sources */,
 				7269EA222896182F009936A7 /* RepoDetailWebView.swift in Sources */,
@@ -716,6 +720,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		72F4817C28A76AF500E17885 /* SavedReposModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				72F4817D28A76AF500E17885 /* SavedReposModel.xcdatamodel */,
+			);
+			currentVersion = 72F4817D28A76AF500E17885 /* SavedReposModel.xcdatamodel */;
+			path = SavedReposModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 723FE7AB287924FB00712166 /* Project object */;
 }
