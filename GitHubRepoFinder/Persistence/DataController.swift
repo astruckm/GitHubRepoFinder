@@ -22,8 +22,33 @@ class DataController {
         }
     }
     
-    func saveNewRepo(_ repo: RepoCellViewData) {
+    func updateRepo(_ repo: RepoCellViewData) {
+        // Find if already exists
+        guard let matchingRepoManagedObj = findMatchingReposInContext(repo).first else { return }
         
+        let context = persistentContainer.viewContext
+        matchingRepoManagedObj.setValue(repo.readMeFullHTML, forKey: "readMe")
+        matchingRepoManagedObj.setValue(repo.imageURL, forKey: "imageURL")
+        do {
+            if context.hasChanges {
+                try context.save()
+            }
+        } catch let error as NSError {
+            print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
+        }
+    }
+    
+    func findMatchingReposInContext(_ repo: RepoCellViewData) -> [NSManagedObject] {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
+        let predicate = NSPredicate(format: "title == %@", repo.title)
+        fetchRequest.predicate = predicate
+        do {
+            let results = try persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject]
+            return results ?? []
+        } catch {
+            print("Error fetching matching repos: ", error)
+        }
+        return []
     }
     
     func saveNewRepos(_ repos: [RepoCellViewData]) {

@@ -95,6 +95,7 @@ class SearchViewModel {
                     
                     self.reposViewData[index] = newViewData
                     self.updateRepo?(indexPath, newViewData)
+                    self.dataController.updateRepo(newViewData)
                 }
             case .failure(let error):
                 print("error fetching image: \(error)")
