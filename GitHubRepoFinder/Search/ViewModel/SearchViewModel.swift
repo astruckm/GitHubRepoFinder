@@ -16,13 +16,12 @@ class SearchViewModel {
     var updateAllRepos: (([RepoCellViewData]) -> Void)?
     var updateRepo: ((IndexPath, RepoCellViewData) -> Void)?
     let dataController: DataController
+    let reposViewDataUpdateQueue = DispatchQueue(label: "com.astruckmarcell.GitHubRepoFinder.reposViewDataUpdateQueue")
     
     init() {
         dataController = DataController {
         }
     }
-    
-    let reposViewDataUpdateQueue = DispatchQueue(label: "com.astruckmarcell.GitHubRepoFinder.reposViewDataUpdateQueue")
 
     func handleGitHubAuthCallback(_ url: URL?, error: Error?) {
         if let error = error {
@@ -131,7 +130,7 @@ class SearchViewModel {
                                 description: repoDesc,
                                 language: language,
                                 numStars: numStars,
-                                repoFullHTML: savedRepo.readMe,
+                                readMeFullHTML: savedRepo.readMe,
                                 imageURL: savedRepo.imageURL)
     }
 }

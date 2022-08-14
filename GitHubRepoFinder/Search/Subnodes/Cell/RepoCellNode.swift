@@ -85,7 +85,7 @@ struct RepoCellNodeSwiftUI: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIView {
         let cell = RepoCellNode()
-        cell.configure(with: RepoCellViewData(title: "MyRepo", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", language: "Swift", numStars: 78, repoFullHTML: nil, imageURL: nil))
+        cell.configure(with: RepoCellViewData(title: "MyRepo", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", language: "Swift", numStars: 78, readMeFullHTML: nil, imageURL: nil))
         let view = cell.view
         return view
     }

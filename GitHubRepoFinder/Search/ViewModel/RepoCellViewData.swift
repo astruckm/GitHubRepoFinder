@@ -15,12 +15,12 @@ class RepoCellViewData {
     var readMeFullHTML: String?
     var imageURL: URL?
         
-    init(title: String, description: String, language: String, numStars: Int, repoFullHTML: String? = nil, imageURL: URL? = nil) {
+    init(title: String, description: String, language: String, numStars: Int, readMeFullHTML: String? = nil, imageURL: URL? = nil) {
         self.title = title
         self.description = description
         self.language = language
         self.numStars = numStars
-        self.readMeFullHTML = repoFullHTML
+        self.readMeFullHTML = readMeFullHTML
         self.imageURL = imageURL
     }
 }
