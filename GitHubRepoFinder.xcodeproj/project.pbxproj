@@ -119,14 +119,48 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		7234D840288990AF00E3AB6F /* Networking */ = {
+		7203AADC28A924AE002E2B7E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				723FE7E9287A97A200712166 /* GitHubConstants.swift */,
+				721DAC47289241BF0026749A /* String+Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7203AADD28A924DB002E2B7E /* Clients */ = {
 			isa = PBXGroup;
 			children = (
 				723FE7E72879AA7D00712166 /* GitHubAPIClient.swift */,
-				721DAC49289244010026749A /* GitHubApiTypes.swift */,
 				721DAC43288D01B90026749A /* GitHubOAuthClient.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		7203AADE28A924F4002E2B7E /* NetworkingTypes */ = {
+			isa = PBXGroup;
+			children = (
+				721DAC49289244010026749A /* GitHubApiTypes.swift */,
 				728E36A5287DAEC5007393DD /* NetworkError.swift */,
 				728E36A728805692007393DD /* HttpClientHandler.swift */,
+			);
+			path = NetworkingTypes;
+			sourceTree = "<group>";
+		};
+		7203AADF28A925A5002E2B7E /* AppLifecycle */ = {
+			isa = PBXGroup;
+			children = (
+				723FE7B6287924FC00712166 /* AppDelegate.swift */,
+				723FE7B8287924FC00712166 /* SceneDelegate.swift */,
+			);
+			path = AppLifecycle;
+			sourceTree = "<group>";
+		};
+		7234D840288990AF00E3AB6F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7203AADD28A924DB002E2B7E /* Clients */,
+				7203AADE28A924F4002E2B7E /* NetworkingTypes */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -192,15 +226,13 @@
 		723FE7B5287924FC00712166 /* GitHubRepoFinder */ = {
 			isa = PBXGroup;
 			children = (
-				723FE7B6287924FC00712166 /* AppDelegate.swift */,
-				723FE7B8287924FC00712166 /* SceneDelegate.swift */,
-				723FE7E9287A97A200712166 /* GitHubConstants.swift */,
-				721DAC47289241BF0026749A /* String+Extensions.swift */,
+				7203AADF28A925A5002E2B7E /* AppLifecycle */,
 				7234D8412889955D00E3AB6F /* Search */,
 				7269EA1E289615D3009936A7 /* RepoDetail */,
 				7234D8422889956600E3AB6F /* Model */,
 				7234D840288990AF00E3AB6F /* Networking */,
 				72F4817928A765B700E17885 /* Persistence */,
+				7203AADC28A924AE002E2B7E /* Utilities */,
 				723FE7BF287924FD00712166 /* Assets.xcassets */,
 				723FE7C1287924FD00712166 /* LaunchScreen.storyboard */,
 				723FE7C4287924FD00712166 /* Info.plist */,

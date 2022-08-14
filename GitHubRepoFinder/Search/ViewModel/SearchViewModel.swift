@@ -19,8 +19,7 @@ class SearchViewModel {
     let reposViewDataUpdateQueue = DispatchQueue(label: "com.astruckmarcell.GitHubRepoFinder.reposViewDataUpdateQueue")
     
     init() {
-        dataController = DataController {
-        }
+        dataController = DataController { }
     }
 
     func handleGitHubAuthCallback(_ url: URL?, error: Error?) {

@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - SearchReposResponse
 struct SearchReposResponse: Codable {
     let totalCount: Int
     let incompleteResults: Bool
@@ -20,7 +19,6 @@ struct SearchReposResponse: Codable {
     }
 }
 
-// MARK: - Item
 struct Item: Codable {
     let name: String
     let fullName: String
@@ -39,7 +37,6 @@ struct Item: Codable {
     }
 }
 
-// MARK: - Owner
 struct Owner: Codable {
     let login: String
     let id: Int
