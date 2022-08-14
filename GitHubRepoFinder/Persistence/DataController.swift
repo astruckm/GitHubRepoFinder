@@ -11,6 +11,7 @@ import CoreData
 class DataController {
     let entityName = "SavedRepo"
     var persistentContainer: NSPersistentContainer
+    let updateSavedReposQueue = DispatchQueue(label: "com.astruckmarcell.GitHubRepoFinder.updateSavedReposQueue")
     
     init(completion: @escaping () -> Void) {
         persistentContainer = NSPersistentContainer(name: "SavedReposModel")
@@ -29,12 +30,14 @@ class DataController {
         let context = persistentContainer.viewContext
         matchingRepoManagedObj.setValue(repo.readMeFullHTML, forKey: "readMe")
         matchingRepoManagedObj.setValue(repo.imageURL, forKey: "imageURL")
-        do {
-            if context.hasChanges {
-                try context.save()
+        updateSavedReposQueue.async {
+            do {
+                if context.hasChanges {
+                    try context.save()
+                }
+            } catch let error as NSError {
+                print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
             }
-        } catch let error as NSError {
-            print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
         }
     }
     
@@ -64,7 +67,9 @@ class DataController {
             repoManagedObj.setValue(repo.readMeFullHTML, forKey: "readMe")
             repoManagedObj.setValue(repo.imageURL, forKey: "imageURL")
             do {
-                try context.save()
+                if context.hasChanges {
+                    try context.save()
+                }
             } catch let error as NSError {
                 print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
             }
