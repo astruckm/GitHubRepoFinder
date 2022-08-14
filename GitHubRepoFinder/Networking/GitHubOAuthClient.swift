@@ -8,8 +8,20 @@
 import Foundation
 
 class GitHubOAuthClient: HttpClientHandler {
-    var accessToken: String?
-    var refreshToken: String?
+    var accessToken: String? {
+        get {
+            UserDefaults.standard.string(forKey: "com.astruckmarcell.GitHubRepoFinder.accessToken")
+        } set {
+            UserDefaults.standard.set(newValue, forKey: "com.astruckmarcell.GitHubRepoFinder.accessToken")
+        }
+    }
+    var refreshToken: String? {
+        get {
+            UserDefaults.standard.string(forKey: "com.astruckmarcell.GitHubRepoFinder.refreshToken")
+        } set {
+            UserDefaults.standard.set(newValue, forKey: "com.astruckmarcell.GitHubRepoFinder.refreshToken")
+        }
+    }
 
     var authURL: URL? {
         let gitHubAuthUrl = "https://github.com/login/oauth/authorize"
