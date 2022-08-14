@@ -109,11 +109,11 @@ class SearchViewModel {
     }
 
     func saveReposViewData(_ viewData: [RepoCellViewData]) {
-        dataController.saveRepos(viewData)
+        dataController.saveNewRepos(viewData)
     }
 
     func loadReposViewData() {
-        if let savedRepos = dataController.loadGifRef() as? [SavedRepo] {
+        if let savedRepos = dataController.loadRepos() as? [SavedRepo] {
             reposViewData = savedRepos.compactMap { convertSavedRepoToViewData(_: $0) }
             updateAllRepos?(reposViewData)
         }

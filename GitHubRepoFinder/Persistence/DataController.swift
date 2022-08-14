@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 class DataController {
-    var repos: [NSManagedObject] = []
+    let entityName = "SavedRepo"
     var persistentContainer: NSPersistentContainer
     
     init(completion: @escaping () -> Void) {
@@ -22,10 +22,15 @@ class DataController {
         }
     }
     
-    func saveRepos(_ repos: [RepoCellViewData]) {
+    func saveNewRepo(_ repo: RepoCellViewData) {
+        
+    }
+    
+    func saveNewRepos(_ repos: [RepoCellViewData]) {
+        deleteAllRepos()
+        let context = persistentContainer.viewContext
         for repo in repos {
-            guard let entity = NSEntityDescription.entity(forEntityName: "SavedRepo", in: persistentContainer.viewContext) else { continue }
-            let context = persistentContainer.viewContext
+            guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: persistentContainer.viewContext) else { continue }
             let repoManagedObj = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
             repoManagedObj.setValue(repo.title, forKey: "title")
             repoManagedObj.setValue(repo.description, forKey: "repoDescription")
@@ -35,8 +40,6 @@ class DataController {
             repoManagedObj.setValue(repo.imageURL, forKey: "imageURL")
             do {
                 try context.save()
-                self.repos.append(repoManagedObj)
-                print("there are now \(repos.count) saved repos")
             } catch let error as NSError {
                 print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
             }
@@ -44,15 +47,25 @@ class DataController {
         }
     }
     
-    func loadGifRef() -> [NSManagedObject]? {
+    func loadRepos() -> [NSManagedObject]? {
         let context = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "SavedRepo")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         do {
             let gifRefs = try context.fetch(fetchRequest)
             return gifRefs
         } catch let error as NSError {
             print("Enable to fetch gif refs: \(error.localizedDescription)\n\(error.userInfo)")
             return nil
+        }
+    }
+    
+    func deleteAllRepos() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+        } catch let error as NSError {
+            print("Unable to save to execute delete all repos request: \(error.localizedDescription)\n\(error.userInfo)")
         }
     }
     
