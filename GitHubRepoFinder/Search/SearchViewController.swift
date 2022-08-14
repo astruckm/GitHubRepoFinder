@@ -39,8 +39,9 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
                 self.searchDisplayNode.tableNode.reloadRows(at: [indexPath], with: .automatic)
             }
         }
-        searchDisplayNode.textCallback = { [weak viewModel] searchText in
-            viewModel?.getRepos(with: searchText)
+        searchDisplayNode.textCallback = { [weak self] searchText in
+            self?.searchDisplayNode.tableNode.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            self?.viewModel.getRepos(with: searchText)
         }
         searchDisplayNode.rowSelectionAction = { [weak self] indexPath in
             guard let viewData = self?.viewModel.reposViewData, indexPath.row < viewData.count else { return }
