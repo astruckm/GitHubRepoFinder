@@ -15,7 +15,12 @@ class SearchViewModel {
     var reposViewData: [RepoCellViewData] = []
     var updateAllRepos: (([RepoCellViewData]) -> Void)?
     var updateRepo: ((IndexPath, RepoCellViewData) -> Void)?
+    let dataController: DataController
     
+    init() {
+        dataController = DataController {
+        }
+    }
     
     let reposViewDataUpdateQueue = DispatchQueue(label: "com.astruckmarcell.GitHubRepoFinder.reposViewDataUpdateQueue")
 
@@ -99,9 +104,35 @@ class SearchViewModel {
     }
     
     func populateViewData(fromSearchReposResponse response: SearchReposResponse) {
-        // TODO: make description be only first 1000 characters or whatever, make sure that language property corresponds to most used one. Check if stargazersCount is every nil
         reposViewData = response.items.map { RepoCellViewData(title: $0.name, description: $0.description ?? "", language: $0.language ?? "", numStars: $0.stargazersCount ?? 0) }
+        saveReposViewData(reposViewData)
         updateAllRepos?(reposViewData)
     }
 
+    func saveReposViewData(_ viewData: [RepoCellViewData]) {
+        dataController.saveRepos(viewData)
+    }
+
+    func loadReposViewData() {
+        if let savedRepos = dataController.loadGifRef() as? [SavedRepo] {
+            reposViewData = savedRepos.compactMap { convertSavedRepoToViewData(_: $0) }
+            updateAllRepos?(reposViewData)
+        }
+    }
+    
+    func convertSavedRepoToViewData(_ savedRepo: SavedRepo) -> RepoCellViewData? {
+        guard let title = savedRepo.title, !title.isEmpty else { return nil }
+        guard let repoDesc = savedRepo.repoDescription, !repoDesc.isEmpty  else { return nil }
+        let numStars = Int(savedRepo.numStars)
+        guard numStars >= 0 else { return nil }
+        let language = savedRepo.language ?? ""
+
+        return RepoCellViewData(title: title,
+                                description: repoDesc,
+                                language: language,
+                                numStars: numStars,
+                                repoFullHTML: savedRepo.readMe,
+                                imageURL: savedRepo.imageURL)
+    }
 }
+

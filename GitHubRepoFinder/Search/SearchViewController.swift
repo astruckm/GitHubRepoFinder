@@ -73,6 +73,8 @@ class SearchViewController: ASDKViewController<ASDisplayNode> {
         loginBarButton.image = UIImage(systemName: "person.crop.circle")
         loginBarButton.title = "login"
         self.navigationItem.rightBarButtonItem = loginBarButton
+        
+        viewModel.loadReposViewData()
     }
         
     @objc func login() {
