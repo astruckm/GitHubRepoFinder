@@ -52,7 +52,7 @@ class SearchViewModel {
             switch result {
             case .success(let user):
                 self?.user = user
-                print("User is: ", user)
+                Logging.logNetworkingUpdate(publicMessage: "Error getting user: ", privateMessage: user.description)
             case .failure(let error):
                 Logging.logNetworkingError(message: "error getting user: \(error)")
             }
@@ -66,8 +66,7 @@ class SearchViewModel {
             switch result {
             case .success(let reposSearchResponse):
                 self.repos = reposSearchResponse
-                print("Repos total count: ", reposSearchResponse.totalCount)
-                print("Repos num Items: ", reposSearchResponse.items.count)
+                Logging.logNetworkingUpdate(publicMessage: "Successfully loaded repositories\nRepos total count: \(reposSearchResponse.totalCount)\nRepos number of Items: \(reposSearchResponse.items.count)")
                 self.populateViewData(fromSearchReposResponse: reposSearchResponse)
                 for (index, item) in reposSearchResponse.items.enumerated() {
                     self.getReadMeImageURL(repoItem: item, atIndex: index)

@@ -18,6 +18,12 @@ enum Logging {
         os_log("%{public}@", log: log, type: .error, message)
     }
     
+    static func logNetworkingUpdate(publicMessage: String = "", privateMessage: String = "") {
+        let log = OSLog(subsystem: Self.subsystem, category: Self.networkingCategory)
+        let publicMsg = privateMessage.isEmpty ? publicMessage : (publicMessage + " ")
+        os_log("%{public}@%{private}@", log: log, type: .info, publicMsg, privateMessage)
+    }
+    
     static func logCoreDataError(message: String) {
         let log = OSLog(subsystem: Self.subsystem, category: Self.coreDataCategory)
         os_log("%{public}@", log: log, type: .error, message)

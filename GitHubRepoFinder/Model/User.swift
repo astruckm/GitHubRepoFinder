@@ -18,4 +18,10 @@ struct User: Codable {
     }
 }
 
+extension User: CustomStringConvertible {
+    var description: String {
+        "Username: \(login)\nName: \(name ?? "")\nURL: \(htmlURL)"
+    }
+}
+
 
