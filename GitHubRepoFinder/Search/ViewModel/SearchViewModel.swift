@@ -24,15 +24,14 @@ class SearchViewModel {
 
     func handleGitHubAuthCallback(_ url: URL?, error: Error?) {
         if let error = error {
-            print("error with GitHub Auth callback: \(error), \(error.localizedDescription)")
+            Logging.logNetworkingError(message: "error with GitHub Auth callback: \(error), \(error.localizedDescription)")
         }
         guard let callbackURL = url,
               let queryItems = URLComponents(string: callbackURL.absoluteString)?.queryItems,
-              let code = queryItems.first(where: { $0.name == "code" })?.value
-        else {
-            print("Could not get auth code from callback URL")
-            return
-        }
+              let code = queryItems.first(where: { $0.name == "code" })?.value else {
+                  Logging.logNetworkingError(message: "Could not get auth code from callback URL")
+                  return
+              }
         getAccessToken(with: code)
     }
     
@@ -42,7 +41,7 @@ class SearchViewModel {
             case .success(_):
                 self?.getUser()
             case .failure(let err):
-                print("failure with error: ", err)
+                Logging.logNetworkingError(message: "failure with error: \(err)")
             }
         }
     }
@@ -55,7 +54,7 @@ class SearchViewModel {
                 self?.user = user
                 print("User is: ", user)
             case .failure(let error):
-                print("error getting user: ", error)
+                Logging.logNetworkingError(message: "error getting user: \(error)")
             }
         }
     }
@@ -74,7 +73,7 @@ class SearchViewModel {
                     self.getReadMeImageURL(repoItem: item, atIndex: index)
                 }
             case .failure(let error):
-                print("error getting repos: ", error)
+                Logging.logNetworkingError(message: "error getting repos: \(error)")
             }
         }
     }
@@ -97,7 +96,7 @@ class SearchViewModel {
                     self.dataController.updateRepo(newViewData)
                 }
             case .failure(let error):
-                print("error fetching image: \(error)")
+                Logging.logNetworkingError(message: "error fetching image: \(error)")
             }
         }
     }

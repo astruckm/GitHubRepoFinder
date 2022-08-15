@@ -17,14 +17,13 @@ class DataController {
         persistentContainer = NSPersistentContainer(name: "SavedReposModel")
         persistentContainer.loadPersistentStores { description, error in
             if let error = error {
-                print("Error loading Core Data: ", error)
+                Logging.logCoreDataError(message: "Error loading Core Data: \(error)")
             }
             completion()
         }
     }
     
     func updateRepo(_ repo: RepoCellViewData) {
-        // Find if already exists
         guard let matchingRepoManagedObj = findMatchingReposInContext(repo).first else { return }
         
         let context = persistentContainer.viewContext
@@ -36,7 +35,7 @@ class DataController {
                     try context.save()
                 }
             } catch let error as NSError {
-                print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
+                Logging.logCoreDataError(message: "Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
             }
         }
     }
@@ -49,7 +48,7 @@ class DataController {
             let results = try persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject]
             return results ?? []
         } catch {
-            print("Error fetching matching repos: ", error)
+            Logging.logCoreDataError(message: "Error fetching matching repos: \(error)")
         }
         return []
     }
@@ -71,7 +70,7 @@ class DataController {
                     try context.save()
                 }
             } catch let error as NSError {
-                print("Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
+                Logging.logCoreDataError(message: "Unable to save to managed object context: \(error.localizedDescription)\n\(error.userInfo)")
             }
 
         }
@@ -84,7 +83,7 @@ class DataController {
             let gifRefs = try context.fetch(fetchRequest)
             return gifRefs
         } catch let error as NSError {
-            print("Enable to fetch gif refs: \(error.localizedDescription)\n\(error.userInfo)")
+            Logging.logCoreDataError(message: "Enable to fetch gif refs: \(error.localizedDescription)\n\(error.userInfo)")
             return nil
         }
     }
@@ -95,7 +94,7 @@ class DataController {
         do {
             try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
         } catch let error as NSError {
-            print("Unable to save to execute delete all repos request: \(error.localizedDescription)\n\(error.userInfo)")
+            Logging.logCoreDataError(message: "Unable to save to execute delete all repos request: \(error.localizedDescription)\n\(error.userInfo)")
         }
     }
     
