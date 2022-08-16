@@ -1,4 +1,4 @@
-#GitHub Repo Finder
+# GitHub Repo Finder
 
 The app fetchs GitHub repositories using a search term, and presents them in a list. Clicking on a row in the list navigates to a detail screen with the repo's README displayed in a WebView. To be able to view all images in the list and the README, first log in to GitHub by tapping on the profile icon in the upper right to bring up GitHub's sign in page. After going through GitHub's authorization flow, you should see images for some searched repos, and clicking on a row will display the README.
 
