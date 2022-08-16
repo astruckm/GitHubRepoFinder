@@ -27,6 +27,7 @@
 		723FE7EC287AF31200712166 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FE7EB287AF31200712166 /* User.swift */; };
 		7269EA202896160D009936A7 /* RepoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269EA1F2896160D009936A7 /* RepoDetailViewController.swift */; };
 		7269EA222896182F009936A7 /* RepoDetailWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269EA212896182F009936A7 /* RepoDetailWebView.swift */; };
+		726A7CEA28AB39CF00E32DC1 /* Login Bar Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 726A7CE928AB39CF00E32DC1 /* Login Bar Button.png */; };
 		728E36A6287DAEC5007393DD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E36A5287DAEC5007393DD /* NetworkError.swift */; };
 		728E36A828805692007393DD /* HttpClientHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E36A728805692007393DD /* HttpClientHandler.swift */; };
 		72BA10EA288847A8006F0B3E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BA10E9288847A8006F0B3E /* SearchViewModel.swift */; };
@@ -75,6 +76,7 @@
 		723FE7EB287AF31200712166 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7269EA1F2896160D009936A7 /* RepoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailViewController.swift; sourceTree = "<group>"; };
 		7269EA212896182F009936A7 /* RepoDetailWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailWebView.swift; sourceTree = "<group>"; };
+		726A7CE928AB39CF00E32DC1 /* Login Bar Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login Bar Button.png"; sourceTree = "<group>"; };
 		728E36A5287DAEC5007393DD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		728E36A728805692007393DD /* HttpClientHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientHandler.swift; sourceTree = "<group>"; };
 		72BA10E9288847A8006F0B3E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		723FE7AA287924FB00712166 = {
 			isa = PBXGroup;
 			children = (
+				726A7CE828AB39CF00E32DC1 /* Screenshots */,
 				723FE7B5287924FC00712166 /* GitHubRepoFinder */,
 				723FE7CC287924FD00712166 /* GitHubRepoFinderTests */,
 				723FE7B4287924FC00712166 /* Products */,
@@ -258,6 +261,14 @@
 				7269EA212896182F009936A7 /* RepoDetailWebView.swift */,
 			);
 			path = RepoDetail;
+			sourceTree = "<group>";
+		};
+		726A7CE828AB39CF00E32DC1 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				726A7CE928AB39CF00E32DC1 /* Login Bar Button.png */,
+			);
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 		72F4817628A7628400E17885 /* ViewModel */ = {
@@ -372,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				726A7CEA28AB39CF00E32DC1 /* Login Bar Button.png in Resources */,
 				723FE7C3287924FD00712166 /* LaunchScreen.storyboard in Resources */,
 				723FE7C0287924FD00712166 /* Assets.xcassets in Resources */,
 			);
