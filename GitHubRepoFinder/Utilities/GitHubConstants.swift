@@ -9,6 +9,6 @@ import Foundation
 
 enum GitHubConstants {
     static let callbackURLScheme = "github-repo-finder"
-    static let clientID = "$ID-goes-here"
-    static let clientSecret = "$Secret-goes-here"
+    static let clientID = "Iv1.274a79c82abfea06"
+    static let clientSecret = "48d18d5d6553324f211d6fd29a16fc287dade13c"
 }
