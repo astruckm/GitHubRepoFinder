@@ -1,7 +1,11 @@
 #GitHub Repo Finder
 
-The app presents GitHub repos fetched using the search term in a list. Clicking on a row in the list navigates to a detail screen with the repo's ReadMe displayed in a WebView. To be able to view all images in the list and the ReadMe, first log in to GitHub by tapping on the profile icon in the upper right to bring up GitHub's sign in page. 
+The app fetchs GitHub repositories using a search term, and presents them in a list. Clicking on a row in the list navigates to a detail screen with the repo's README displayed in a WebView. To be able to view all images in the list and the README, first log in to GitHub by tapping on the profile icon in the upper right to bring up GitHub's sign in page. After going through GitHub's authorization flow, you should see images for some searched repos, and clicking on a row will display the README.
 
-The UI is made using the Texture framework, with exception of the search bar and the navigation controller's UIBarButtonItem. 
+The UI is made using the Texture framework, with the exception of some subviews. 
 
-After logging in using one's GitHub credentials, the app does decode some User data, although that is not currently used. The app uses the received access token to download each repo's ReadMe as HTML. A GitHub app was created to enable more requests to be made per hour.
+After logging in using one's GitHub credentials, the app does decode some User data, although that is not currently used. The app uses the received access token to download a String of the HTML for each repo's README (from which it also parses the repo's first image source URL). 
+
+After signing in once, the access token should persist, making signing in unnecessary on subsequent sessions. The repo search results should also persist, enabling an offline experience, and preserving the last search results for new app sessions.
+
+Errors occuring in networking methods and while saving/loading using Core Data are logged to the system.
